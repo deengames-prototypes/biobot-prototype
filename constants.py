@@ -3,7 +3,7 @@ MAP_WIDTH = 80
 MAP_HEIGHT = 30
 
 SCREEN_WIDTH = MAP_WIDTH
-SCREEN_HEIGHT = MAP_HEIGHT + 3
+SCREEN_HEIGHT = MAP_HEIGHT + 5 # +5 for status bar + health display
 
 # sizes and coordinates relevant for the GUI
 BAR_WIDTH = 20
