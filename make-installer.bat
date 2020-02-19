@@ -1,0 +1,1 @@
+PyInstaller main.py --additional-hooks-dir=. -F

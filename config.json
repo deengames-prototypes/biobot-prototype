@@ -1,0 +1,141 @@
+{
+    "seed": null,  // null for a random seed; seeds the game.
+    "fullscreen": false,
+    "mapType": "dungeon",  // "forest" or "dungeon"
+    "numFloors": 5,
+    "features": {
+        "swordStuns": true,
+        "stunsStack": true,
+        "hammerKnocksBack": true,
+        "knockBackDamagesOnCollision": true,
+        "bowCrits": true,
+        "bowCritsStack": true,
+        "limitedArrows": true,
+        "seeAllTiles": false,
+        "horseIsMountable": true
+    },
+    "player": {
+        "startingHealth": 30,
+        "startingDefense": 2,
+        "startingDamage": 6,
+
+        "maxSkillPoints": 50,
+        "skillPointsPerTurn": 2,
+
+        "expRequiredBase": 10, // formula: 2^(n+1) * this
+        "startingWeapon": "Spear",
+        "lightRadius": 10,
+        "statsPointsOnLevelUp": 5,
+        "startingArrows": 10,
+        "stallionFollowDistance": 3
+    },
+    "stallion": {
+        "enabled": true,
+        "startingHealth": 40,
+        "startingDefense": 5,
+        "startingDamage": 10,
+        "maxSkillPoints": 50
+    },
+    "skills": {
+        "resting": {
+            "enabled": true,
+            "percent": 5 // formula: this/100 * max_hp
+        },
+        "omnislash": {
+            "enabled": true,
+            "guaranteedHits": 2,
+            "probabilityOfAnotherHit": 20,
+            "cost": 10
+        },
+        "whirlwind": {
+            "enabled": true,
+            "radius": 2,
+            "cost": 15
+        },
+        "frostbomb": {
+            "enabled": true,
+            "radius": 5,
+            "turnsToThaw": 5,
+            "cost": 25
+        },
+        "lanceCharge": {
+            "enabled": true,
+            "cost": 10,
+            "chargeDistance": 5,
+            "damage": 15
+        },
+        "ruqya": {
+          "enabled": true,
+          "percent": 15,
+          "cost": 10
+        }
+    },
+    "item": {
+      "skillPointPotion": {
+          "restores": 15
+      }
+    },
+    "weapons": {
+        // Sword
+        "swordStunProbability": 20,
+        "numTurnsStunned": 3,
+
+        // Hammer
+        "hammerKnockBackProbability": 200,
+        "hammerKnockBackRange": 4, // knock back N tiles
+        // what percentage of health monsters lose when knocked back into something
+        "hammerKnockBackDamagePercent": 20,
+
+        // Bow
+        "arrowDamageMultiplier": 0.5, // 0.5 => arrows do 0.5x damage
+        "bowCriticalProbability": 50,
+        "bowCriticalDamageMultiplier": 0.25, // 0.1 => (1.0 + 0.1)x damage on crit
+
+        "spear": {
+            "pierceRange": 3
+        }
+    },
+    "enemies": {
+        "arrowDropsOnKill": 3,
+        "randomlyWalkWhenOutOfSight": true,
+        "fire": {
+          "damage": 5,
+          "spreadProbability": 5,
+          "selfExtinguishTurns": 3
+        },
+        "bushslime": {
+            "attack": 3,
+            "defense": 3,
+            "health": 10,
+            "xp": 10
+        },
+        "steelhawk": {
+            "attack": 5,
+            "defense": 1,
+            "health": 15,
+            "xp": 20
+        },
+        "tigerslash": {
+            "attack": 7,
+            "defense": 0,
+            "health": 10,
+            "xp": 35
+        },
+        "salamander": {
+            "attack": 4,
+            "defense": 2,
+            "health": 8,
+            "xp": 35,
+            "shootsFire": true,
+            "firesPerTurn": 0.5,
+            "fireRange": 5
+        }
+    },
+    "skillsOnLevelUp": {
+        "2": "omnislash",
+        "3": "whirlwind",
+        "4": "ruqya",
+        "5": "frostbomb",
+        "6": "lanceCharge"
+    }
+}
