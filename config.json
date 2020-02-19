@@ -1,7 +1,7 @@
 {
     "seed": null,  // null for a random seed; seeds the game.
     "fullscreen": false,
-    "mapType": "dungeon",  // "forest" or "dungeon"
+    "mapType": "forest",  // "forest" or "dungeon"
     "numFloors": 5,
     "features": {
         "swordStuns": true,
@@ -23,7 +23,7 @@
         "skillPointsPerTurn": 2,
 
         "expRequiredBase": 10, // formula: 2^(n+1) * this
-        "startingWeapon": "Spear",
+        "startingWeapon": "Bow",
         "lightRadius": 10,
         "statsPointsOnLevelUp": 5,
         "startingArrows": 10,
@@ -87,7 +87,7 @@
         "hammerKnockBackDamagePercent": 20,
 
         // Bow
-        "arrowDamageMultiplier": 0.5, // 0.5 => arrows do 0.5x damage
+        "arrowDamageMultiplier": 0.7, // 0.5 => arrows do 0.5x damage
         "bowCriticalProbability": 50,
         "bowCriticalDamageMultiplier": 0.25, // 0.1 => (1.0 + 0.1)x damage on crit
 
