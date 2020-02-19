@@ -9,6 +9,7 @@ file_watcher.watch('config.json', lambda raw_json: config.load(raw_json))
 
 import colors
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT, PANEL_HEIGHT, LIMIT_FPS
+from difficulty import Difficulty
 from game import Game
 from data.save_manager import SaveManager
 from model.helper_functions.menu import create_menu, message_box
@@ -38,6 +39,12 @@ def new_game():
         Game.instance.stallion = Stallion(Game.instance.player)
 
     Game.instance.floors = []
+
+    with open('current_difficulty', 'rb') as f:
+        difficulty = int(f.readline())
+
+    Game.instance.current_difficulty = difficulty
+    print('New game; difficulty is {}'.format(difficulty))
 
     for i in range(1, config.data.numFloors + 1):
         Game.instance.area_map = AreaMap(MAP_WIDTH, MAP_HEIGHT, i)
@@ -86,6 +93,7 @@ def play_game():
 
 def init_game():
     Game() # initializes Game.instance
+    Difficulty()
 
     Game.instance.ui = TdlAdapter(
         "Roguelike",
