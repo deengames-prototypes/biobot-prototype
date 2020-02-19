@@ -6,3 +6,5 @@ savegame*
 build
 dist
 main.spec
+
+current_difficulty
