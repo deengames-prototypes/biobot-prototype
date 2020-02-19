@@ -30,7 +30,7 @@
         "stallionFollowDistance": 3
     },
     "stallion": {
-        "enabled": true,
+        "enabled": false,
         "startingHealth": 40,
         "startingDefense": 5,
         "startingDamage": 10,

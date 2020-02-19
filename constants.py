@@ -1,9 +1,9 @@
-SCREEN_WIDTH = 80
-SCREEN_HEIGHT = 30
-
 # size of the map
 MAP_WIDTH = 80
 MAP_HEIGHT = 30
+
+SCREEN_WIDTH = MAP_WIDTH
+SCREEN_HEIGHT = MAP_HEIGHT + 3
 
 # sizes and coordinates relevant for the GUI
 BAR_WIDTH = 20
