@@ -5,8 +5,7 @@ class Difficulty:
 
     def __init__(self):
         Difficulty.instance = self
-        self.current_difficulty = 1000
-
+        self.load()
         self.watch_events()
     
     def watch_events(self):
@@ -17,6 +16,13 @@ class Difficulty:
         with open('current_difficulty', 'w') as f:
             data = str(self.current_difficulty)
             f.writelines(data)
+    
+    def load(self):
+        with open('current_difficulty', 'r') as f:
+            difficulty = int(f.readline())
+
+        self.current_difficulty = difficulty
+        print("Loaded; difficulty is {}".format(self.current_difficulty))
 
     # event handlers
     def _on_entity_hurt(self, entity):

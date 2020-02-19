@@ -26,8 +26,4 @@ class SaveManager:
         with open('savegame', 'rb') as f:
             Game.instance.__dict__.update(pickle.load(f).__dict__)
 
-        with open('current_difficulty', 'r') as f:
-            difficulty = int(f.readline())
-
-        Difficulty.instance.current_difficulty = difficulty
-        print("Loaded; difficulty is {}".format(difficulty))
+        Difficulty.instance.load()
