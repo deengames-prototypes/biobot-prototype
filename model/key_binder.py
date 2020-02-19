@@ -10,14 +10,18 @@ KEY_BINDINGS = {
     'ENTER': enter_callback,
 
     'UP': up_callback,
+    'w': up_callback,
     'DOWN': down_callback,
+    's': down_callback,
     'LEFT': left_callback,
+    'a': left_callback,
     'RIGHT': right_callback,
+    'd': right_callback,
 
     'g': pickup_callback,
 
     'i': inventory_use,
-    'd': inventory_drop,
+    'D': inventory_drop,
 
     'f': bow_callback,
     'm': mount_callback,
