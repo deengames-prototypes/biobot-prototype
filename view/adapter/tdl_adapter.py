@@ -10,7 +10,7 @@ from view.adapter.extensible_app import ExtensibleApp
 
 class TdlAdapter:
     def __init__(self, window_title, screen, map, panel, fps_limit=20):
-        tdl.set_font('arial10x10.png', greyscale=True, altLayout=True)
+        tdl.set_font('terminal8x12_gs_tc.png', greyscale=True, altLayout=True)
         self.root = tdl.init(*screen, title=window_title,
                              fullscreen=config.data.fullscreen)
         tdl.setFPS(fps_limit)

@@ -1,5 +1,5 @@
 SCREEN_WIDTH = 80
-SCREEN_HEIGHT = 50
+SCREEN_HEIGHT = 30
 
 # size of the map
 MAP_WIDTH = 80

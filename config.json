@@ -87,7 +87,7 @@
         "hammerKnockBackDamagePercent": 20,
 
         // Bow
-        "arrowDamageMultiplier": 0.7, // 0.5 => arrows do 0.5x damage
+        "arrowDamageMultiplier": 0.5, // 0.5 => arrows do 0.5x damage
         "bowCriticalProbability": 50,
         "bowCriticalDamageMultiplier": 0.25, // 0.1 => (1.0 + 0.1)x damage on crit
 
