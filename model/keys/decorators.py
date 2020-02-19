@@ -1,6 +1,6 @@
 from functools import wraps
 
-import colors
+import palette
 from game import Game
 from model.helper_functions.message import message
 from model.helper_functions.skills import can_use_horse_skill, can_use_skill
@@ -34,7 +34,7 @@ def skill(callback=None, *, cost=0):
             if can_use_skill(cost):
                 callback(event)
             else:
-                message(f"Not enough skill points to use skill!", colors.dark_red)
+                message(f"Not enough skill points to use skill!", palette.gray_blue)
 
         return _inner_function
 
@@ -52,9 +52,9 @@ def horse_skill(callback=None, *, cost=0):
                 if Game.instance.stallion.is_mounted:
                     callback(event)
                 else:
-                    message("You can only use this skill on a horse!", colors.dark_red)
+                    message("You can only use this skill on a horse!", palette.gray_blue)
             else:
-                message("Not enough skill points to use skill!", colors.dark_red)
+                message("Not enough skill points to use skill!", palette.gray_blue)
 
         return _inner_function
 

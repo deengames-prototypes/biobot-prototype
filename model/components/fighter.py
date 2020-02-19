@@ -1,4 +1,4 @@
-import colors
+import palette
 from model.config import config
 from model.components.base import Component
 from model.factories import item_factory
@@ -73,7 +73,7 @@ class Fighter(Component):
                 self.owner.x, self.owner.y,
                 '|',
                 f'{num_arrows} arrows',
-                colors.brass
+                palette.light_brown
             )
 
             Game.instance.area_map.entities.append(arrows)

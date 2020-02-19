@@ -1,4 +1,4 @@
-import colors
+import palette
 from constants import FOV_ALGO, FOV_LIGHT_WALLS, MSG_X
 from game import Game
 from model.maps import area_map
@@ -70,14 +70,14 @@ class MapRenderer:
             for pos in line:
                 if pos in self.visible_tiles:
                     if pos == (x2, y2) and monster_on_target_tile:
-                        self._ui_adapter.con.draw_str(pos[0], pos[1], 'X', fg=colors.red)
+                        self._ui_adapter.con.draw_str(pos[0], pos[1], 'X', fg=palette.red)
                     else:
-                        self._ui_adapter.con.draw_str(pos[0], pos[1], '*', colors.dark_green)
+                        self._ui_adapter.con.draw_str(pos[0], pos[1], '*', palette.dark_green)
 
         self._player.draw()
 
         # prepare to render the GUI self._ui_adapter.panel
-        self._ui_adapter.panel.clear(fg=colors.white, bg=colors.black)
+        self._ui_adapter.panel.clear(fg=palette.white, bg=palette.black)
 
         # print the game messages, one line at a time
         y = 1
@@ -111,7 +111,7 @@ class MapRenderer:
                                                                       config.data.stallion.maxSkillPoints))
 
         # display names of objects under the mouse
-        self._ui_adapter.panel.draw_str(1, 0, get_names_under_mouse(), fg=colors.light_gray)
+        self._ui_adapter.panel.draw_str(1, 0, get_names_under_mouse(), fg=palette.light_gray)
 
         self._ui_adapter.flush()
 

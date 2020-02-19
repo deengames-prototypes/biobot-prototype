@@ -1,11 +1,11 @@
 import textwrap
 
-import colors
+import palette
 from constants import MSG_WIDTH, MSG_HEIGHT
 from game import Game
 
 
-def message(new_msg, color=colors.white):
+def message(new_msg, color=palette.white):
     # split the message if necessary, among multiple lines
     new_msg_lines = textwrap.wrap(new_msg, MSG_WIDTH)
 

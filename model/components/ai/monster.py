@@ -1,4 +1,4 @@
-import colors
+import palette
 from model.components.walkers.random_walker import RandomWalker
 from model.config import config
 from constants import CONFUSE_NUM_TURNS
@@ -42,7 +42,7 @@ class StunnedMonster(AbstractAI):
             self.owner.char = str(self.num_turns)[-1]  # last digit
 
         if self.num_turns == 0:
-            message('The ' + self.owner.name + ' is no longer stunned!', colors.red)
+            message('The ' + self.owner.name + ' is no longer stunned!', palette.red)
             self.owner.char = self.owner.name[0]
 
 
@@ -78,4 +78,4 @@ class ConfusedMonster(AbstractAI):
             self.num_turns -= 1
 
         if self.num_turns == 0:
-            message('The ' + self.owner.name + ' is no longer confused!', colors.red)
+            message('The ' + self.owner.name + ' is no longer confused!', palette.red)

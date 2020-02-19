@@ -1,4 +1,4 @@
-import colors
+import palette
 from game import Game
 from model.components.fighter import Fighter
 from model.entities.game_object import GameObject
@@ -7,7 +7,7 @@ from model.config import config
 
 class Fire(GameObject):
     def __init__(self, x, y):
-        super().__init__(x, y, '*', 'Fire', colors.red, blocks=False)
+        super().__init__(x, y, '*', 'Fire', palette.red, blocks=False)
 
         Game.instance.event_bus.bind('on_entity_move', self.on_entity_move, self)
         Game.instance.event_bus.bind('on_turn_pass', self.on_turn_passed, self)

@@ -1,4 +1,4 @@
-import colors
+import palette
 from model.components.skill import SkillComponent
 from model.components.xp import XPComponent
 from model.config import config
@@ -13,7 +13,7 @@ from model.key_binder import add_skill
 class Player(GameObject):
     def __init__(self):
         data = config.data.player
-        super().__init__(0, 0, '@', 'player', colors.white, blocks=True)
+        super().__init__(0, 0, '@', 'player', palette.white, blocks=True)
 
         # Turn a name like "Sword" into the actual class instance
         weapon_name = data.startingWeapon

@@ -5,15 +5,15 @@ from model.helper_functions import item_callbacks
 from model.config import config
 from model.factories import item_factory
 from model.factories import monster_factory
-import colors
+import palette
 
 
 def generate_monsters(area_map, num_monsters):
     enemies = [
-        ('bushslime', config.data.enemies.bushslime, colors.desaturated_green, GameObject),
-        ('steelhawk', config.data.enemies.steelhawk, colors.light_blue, GameObject),
-        ('tigerslash', config.data.enemies.tigerslash, colors.orange, GameObject),
-        ('salamander', config.data.enemies.salamander, colors.red, Salamander)
+        ('bushslime', config.data.enemies.bushslime, palette.dark_green, GameObject),
+        ('steelhawk', config.data.enemies.steelhawk, palette.blue, GameObject),
+        ('tigerslash', config.data.enemies.tigerslash, palette.orange, GameObject),
+        ('salamander', config.data.enemies.salamander, palette.red, Salamander)
     ]
     probabilities = [
         45,
@@ -33,11 +33,11 @@ def generate_monsters(area_map, num_monsters):
 
 def generate_items(area_map, num_items):
     items = [
-        ('!', 'healing potion', colors.violet, item_callbacks.cast_heal),
-        ('$', 'skill potion', colors.violet, item_callbacks.restore_skill_points),
-        ('#', 'scroll of lightning bolt', colors.light_yellow, item_callbacks.cast_lightning),
-        ('#', 'scroll of fireball', colors.light_yellow, item_callbacks.cast_fireball),
-        ('#', 'scroll of confusion', colors.light_yellow, item_callbacks.cast_confuse)
+        ('!', 'healing potion', palette.pink, item_callbacks.cast_heal),
+        ('$', 'skill potion', palette.pink, item_callbacks.restore_skill_points),
+        ('#', 'scroll of lightning bolt', palette.yellow, item_callbacks.cast_lightning),
+        ('#', 'scroll of fireball', palette.yellow, item_callbacks.cast_fireball),
+        ('#', 'scroll of confusion', palette.yellow, item_callbacks.cast_confuse)
     ]
     probabilities = [
         35,

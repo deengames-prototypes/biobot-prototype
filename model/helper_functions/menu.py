@@ -1,6 +1,6 @@
 import textwrap
 
-import colors
+import palette
 from constants import INVENTORY_WIDTH, SCREEN_WIDTH, SCREEN_HEIGHT
 from game import Game
 
@@ -20,7 +20,7 @@ def create_menu(header, options, width):
     window = Game.instance.ui.managed_console(width, height)
 
     # print the header, with wrapped text
-    window.draw_rect(0, 0, width, height, None, fg=colors.white)
+    window.draw_rect(0, 0, width, height, None, fg=palette.white)
     for i, line in enumerate(header_wrapped):
         window.draw_str(0, 0 + i, header_wrapped[i])
 

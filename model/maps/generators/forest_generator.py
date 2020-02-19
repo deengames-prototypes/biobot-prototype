@@ -2,7 +2,7 @@ import math
 
 from attrdict import AttrDict
 
-import colors
+import palette
 from game import Game
 from model.components.walkers.random_walker import RandomWalker
 from model.maps.generators import map_generator
@@ -21,7 +21,7 @@ class ForestGenerator:
         (64, 128, 0), # Brownish
         (0, 64, 0)) # Greenish
     NUM_ITEMS = (10, 20)
-    NUM_MONSTERS = (20, 30)
+    NUM_MONSTERS = (15, 25)
 
     def __init__(self, area_map):
         self._area_map = area_map
@@ -135,11 +135,11 @@ class ForestGenerator:
         if self._area_map.floor_num < config.data.numFloors:
             tile = self._area_map.get_random_walkable_tile()
             self._area_map.next_floor_stairs = tile
-            self._area_map.tiles[tile[0]][tile[1]].convert_to_ground(character='>', colour=colors.white,
-                                                                     dark_colour=colors.grey)
+            self._area_map.tiles[tile[0]][tile[1]].convert_to_ground(character='>', colour=palette.white,
+                                                                     dark_colour=palette.gray)
 
         if self._area_map.floor_num > 1:
             tile = self._area_map.get_random_walkable_tile()
             self._area_map.previous_floor_stairs = tile
-            self._area_map.tiles[tile[0]][tile[1]].convert_to_ground(character='<', colour=colors.white,
-                                                                     dark_colour=colors.grey)
+            self._area_map.tiles[tile[0]][tile[1]].convert_to_ground(character='<', colour=palette.white,
+                                                                     dark_colour=palette.gray)

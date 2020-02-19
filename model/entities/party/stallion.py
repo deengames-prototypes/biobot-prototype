@@ -1,4 +1,4 @@
-import colors
+import palette
 from game import Game
 from model.components.skill import SkillComponent
 from model.config import config
@@ -10,7 +10,7 @@ from model.helper_functions.death_functions import horse_death
 
 class Stallion(GameObject):
     def __init__(self, player):
-        super().__init__(0, 0, '=', 'stallion', color=colors.sepia, blocks=True)
+        super().__init__(0, 0, '=', 'stallion', color=palette.brown, blocks=True)
 
         data = config.data.stallion
 

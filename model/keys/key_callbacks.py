@@ -1,4 +1,4 @@
-import colors
+import palette
 from constants import DELTA_UP, DELTA_DOWN, DELTA_LEFT, DELTA_RIGHT
 from game import Game
 from model.helper_functions.menu import inventory_menu
@@ -160,7 +160,7 @@ def continuous_rest_callback(event):
                     Game.instance.player.rest()
                     Game.instance.current_turn = None
                 else:
-                    message("Your resting is interrupted; there are enemies nearby!", colors.red)
+                    message("Your resting is interrupted; there are enemies nearby!", palette.red)
                     turns_to_rest = 0
                     new_update_callback(delta_time, update_manager)
             else:
@@ -181,7 +181,7 @@ def whirlwind_callback(event):
 def omnislash_callback(event):
     """Enter omnislash mode!"""
     if config.data.skills.omnislash.enabled:
-        message('Attack an enemy to activate omnislash, or press escape to cancel.', colors.light_cyan)
+        message('Attack an enemy to activate omnislash, or press escape to cancel.', palette.light_cyan)
 
         Game.instance.keybinder.suspend_all_keybinds()
 
@@ -193,7 +193,7 @@ def omnislash_callback(event):
             target = Game.instance.area_map.get_blocking_object_at(Game.instance.player.x + dx, Game.instance.player.y + dy)
             if target is not None and Game.instance.fighter_system.has(target):
                 message(f'{target.name.capitalize()} has been ruthlessly attacked by {Game.instance.player.name}!',
-                        colors.dark_purple)
+                        palette.purple)
                 Game.instance.skill_system.get(Game.instance.player).use_skill(config.data.skills.omnislash.cost)
                 OmniSlash.process(Game.instance.player, target, config.data.skills.omnislash)
                 Game.instance.keybinder.register_all_keybinds()
@@ -209,14 +209,14 @@ def omnislash_callback(event):
 def frost_bomb_callback(event):
     if config.data.skills.frostbomb.enabled:
         FrostBomb.process(Game.instance.area_map, Game.instance.player, Game.instance.ai_system, config.data.skills.frostbomb)
-        message("A cold wind gushes forward as enemies around you freeze!", colors.cyan)
+        message("A cold wind gushes forward as enemies around you freeze!", palette.cyan)
 
 
 @horse_skill(cost=0)
 @in_game(pass_turn=False)
 def lance_charge_callback(event):
     if config.data.stallion.enabled and config.data.skills.lanceCharge.enabled:
-        message('Move to charge with your lance, or press escape to cancel.', colors.light_cyan)
+        message('Move to charge with your lance, or press escape to cancel.', palette.light_cyan)
 
         Game.instance.keybinder.suspend_all_keybinds()
 
@@ -247,7 +247,7 @@ def ruqya_callback(event):
     if config.data.skills.ruqya.enabled:
         player_fighter = Game.instance.fighter_system.get(Game.instance.player)
         if player_fighter.hp == player_fighter.max_hp:
-            message("You are already at full health.", colors.red)
+            message("You are already at full health.", palette.red)
             return
 
         if can_use_skill(config.data.skills.ruqya.cost):

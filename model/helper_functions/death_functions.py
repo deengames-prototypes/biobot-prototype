@@ -1,4 +1,4 @@
-import colors
+import palette
 from model.helper_functions.message import message
 from game import Game
 
@@ -6,7 +6,7 @@ from game import Game
 def monster_death(monster):
     # transform it into a nasty corpse! it doesn't block, can't be
     # attacked and doesn't move
-    message(monster.name.capitalize() + ' is dead!', colors.orange)
+    message(monster.name.capitalize() + ' is dead!', palette.orange)
     _mark_entity_as_dead(monster)
 
     Game.instance.xp_system.get(Game.instance.player).gain_xp(Game.instance.xp_system.get(monster).xp)
@@ -18,17 +18,17 @@ def monster_death(monster):
 
 def player_death(player):
     # the game ended!
-    message('You died!', colors.red)
+    message('You died!', palette.red)
     Game.instance.game_state = 'dead'
     Game.instance.keybinder.register_all_keybinds_and_events()
 
     # for added effect, transform the player into a corpse!
     player.char = '%'
-    player.color = colors.dark_red
+    player.color = palette.gray_blue
 
 
 def horse_death(horse):
-    message('Stallion is dead!', colors.red)
+    message('Stallion is dead!', palette.red)
     _mark_entity_as_dead(horse)
 
     Game.instance.fighter_system.remove(horse)
@@ -40,7 +40,7 @@ def horse_death(horse):
 
 def _mark_entity_as_dead(entity):
     entity.char = '%'
-    entity.color = colors.dark_red
+    entity.color = palette.gray_blue
     entity.blocks = False
     entity.name = "{} remains".format(entity.name)
     entity.send_to_back()

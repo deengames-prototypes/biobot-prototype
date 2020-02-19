@@ -1,4 +1,4 @@
-import colors
+import palette
 from model.config import config
 from model.components.ai.monster import StunnedMonster
 from model.helper_functions.message import message
@@ -24,4 +24,4 @@ class Sword(Weapon):
                 else:
                     # Copy-pasta from two lines above
                     target_ai.temporarily_switch_to(StunnedMonster(target))
-                message('{} looks incapacitated!'.format(target.name), colors.light_green)
+                message('{} looks incapacitated!'.format(target.name), palette.lime_green)

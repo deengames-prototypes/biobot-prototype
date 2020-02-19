@@ -7,7 +7,7 @@ from tcod import image_load
 from model.config import file_watcher, config
 file_watcher.watch('config.json', lambda raw_json: config.load(raw_json))
 
-import colors
+import palette
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT, PANEL_HEIGHT, LIMIT_FPS
 from difficulty import Difficulty
 from game import Game
@@ -73,7 +73,7 @@ def new_game():
     Game.instance.game_messages = []
 
     # a warm welcoming message!
-    message('Another brave knight yearns to bring peace to the land.', colors.red)
+    message('Bio-bot 7163R descends to the planet.', palette.red)
 
     # Gain four levels
     Game.instance.xp_system.get(Game.instance.player).gain_xp(40 + 80 + 160 + 320)
@@ -125,11 +125,11 @@ def main_menu():
         # show the game's title, and some credits!
         title = 'BIOBOT (PROTOTYPE)'
         center = (SCREEN_WIDTH - len(title)) // 2
-        Game.instance.ui.draw_root(center, SCREEN_HEIGHT // 2 - 4, title, colors.light_yellow)
+        Game.instance.ui.draw_root(center, SCREEN_HEIGHT // 2 - 4, title, palette.yellow)
 
         title = 'By nightblade9'
         center = (SCREEN_WIDTH - len(title)) // 2
-        Game.instance.ui.draw_root(center, SCREEN_HEIGHT - 2, title, colors.light_yellow)
+        Game.instance.ui.draw_root(center, SCREEN_HEIGHT - 2, title, palette.yellow)
 
         # show options and wait for the player's choice
         choice = create_menu('', ['Play a new game', 'Continue last game', 'Quit'], 24)

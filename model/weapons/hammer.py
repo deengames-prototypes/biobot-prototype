@@ -1,6 +1,6 @@
 import math
 
-import colors
+import palette
 from model.config import config
 from model.helper_functions.message import message
 from model.components.ai.monster import StunnedMonster
@@ -54,6 +54,6 @@ class Hammer(Weapon):
                 else:
                     knockback_distance += 1
 
-            message(display_message, colors.light_green)
+            message(display_message, palette.lime_green)
             if extra_message:
-                message(extra_message, colors.light_green)
+                message(extra_message, palette.lime_green)
