@@ -18,9 +18,7 @@ class SaveManager:
         with open('savegame', 'wb') as f:
             pickle.dump(to_pickle, f, pickle.HIGHEST_PROTOCOL)
         
-        with open('current_difficulty', 'w') as f:
-            data = str(Difficulty.instance.current_difficulty)
-            f.writelines(data)
+        Difficulty.instance.save()
         print("Saved; difficulty is {}".format(Difficulty.instance.current_difficulty))
 
     def load(self):

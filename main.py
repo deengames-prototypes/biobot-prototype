@@ -49,6 +49,7 @@ def new_game():
     for i in range(1, config.data.numFloors + 1):
         Game.instance.area_map = AreaMap(MAP_WIDTH, MAP_HEIGHT, i)
         Game.instance.event_bus = EventBus()
+        Difficulty.instance.watch_events()
 
         # generate map (at this point it's not drawn to the screen)
         generator_class_name = f'{str(config.data.mapType).lower().capitalize()}Generator'
@@ -94,6 +95,8 @@ def play_game():
 def init_game():
     Game() # initializes Game.instance
     Difficulty()
+    Game.instance.event_bus = EventBus()
+    Difficulty.instance.watch_events()
 
     Game.instance.ui = TdlAdapter(
         "Roguelike",
@@ -110,9 +113,6 @@ def init_game():
     seed = config.get("seed") or int(datetime.now().timestamp())
     Game.instance.random = Random(seed)
     print("Seeding as universe #{}".format(seed))
-
-    Game.instance.event_bus = EventBus()
-
 
 def main_menu():
     init_game()
