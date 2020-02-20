@@ -47,9 +47,7 @@ class UpdateManager:
         self.game.area_map.entities.remove(self.game.player)
         if config.data.stallion.enabled:
             self.game.area_map.entities.remove(self.game.stallion)
-
-        self.game.area_map = self.game.floors[self.game.current_floor - 1]
-        self.game.event_bus = self.game.event_busses[self.game.current_floor - 1]
+        self.game.generate_floor()
 
     def place_player_in_floor(self, tile_to_spawn_player_around):
         self.game.area_map.place_around(self.game.player, *tile_to_spawn_player_around)

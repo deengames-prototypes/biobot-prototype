@@ -18,7 +18,6 @@ from model.entities.party.player import Player
 from model.entities.party.stallion import Stallion
 from model.event.event_bus import EventBus
 from model.key_binder import KeyBinder
-from model.maps import generators
 from model.maps.area_map import AreaMap
 from model.maps.generators import ForestGenerator
 from model.systems.ai_system import AISystem
@@ -46,21 +45,7 @@ def new_game():
     Game.instance.current_difficulty = difficulty
     print('New game; difficulty is {}'.format(difficulty))
 
-    for i in range(1, config.data.numFloors + 1):
-        Game.instance.area_map = AreaMap(MAP_WIDTH, MAP_HEIGHT, i)
-        Game.instance.event_bus = EventBus()
-        Difficulty.instance.watch_events()
-
-        # generate map (at this point it's not drawn to the screen)
-        generator_class_name = f'{str(config.data.mapType).lower().capitalize()}Generator'
-        generator = getattr(generators, generator_class_name)
-        generator(Game.instance.area_map).generate()
-
-        Game.instance.floors.append(Game.instance.area_map)
-        Game.instance.event_busses.append(Game.instance.event_bus)
-
-    Game.instance.area_map = Game.instance.floors[Game.instance.current_floor-1]
-    Game.instance.event_bus = Game.instance.event_busses[Game.instance.current_floor-1]
+    Game.instance.generate_floor()
 
     Game.instance.area_map.place_on_random_ground(Game.instance.player)
     if config.data.stallion.enabled:
@@ -95,8 +80,6 @@ def play_game():
 def init_game():
     Game() # initializes Game.instance
     Difficulty()
-    Game.instance.event_bus = EventBus()
-    Difficulty.instance.watch_events()
 
     Game.instance.ui = TdlAdapter(
         "Roguelike",
