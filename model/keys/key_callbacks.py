@@ -93,25 +93,31 @@ def bow_callback(event):
 
         @in_game(pass_turn=True)
         def new_f_callback(event):
-            if not Game.instance.auto_target:
-                Game.instance.target = Game.instance.area_map.get_blocking_object_at(*Game.instance.mouse_coord) or None
+            arrows_are_available = (not config.data.features.limitedArrows
+                or (config.data.features.limitedArrows and Game.instance.player.arrows > 0))
 
-            if Game.instance.target and Game.instance.fighter_system.has(Game.instance.target):
-                is_critical = False
-                conf = config.data.weapons
-                damage_multiplier = conf.arrowDamageMultiplier
+            if arrows_are_available:
+                if not Game.instance.auto_target:
+                    Game.instance.target = Game.instance.area_map.get_blocking_object_at(*Game.instance.mouse_coord) or None
 
-                if config.data.features.bowCrits and Game.instance.random.randint(0, 100) <= conf.bowCriticalProbability:
-                    damage_multiplier *= 1 + conf.bowCriticalDamageMultiplier
-                    if config.data.features.bowCritsStack:
-                        target_fighter = Game.instance.fighter_system.get(Game.instance.target)
-                        damage_multiplier += conf.bowCriticalDamageMultiplier * target_fighter.bow_crits
-                        target_fighter.bow_crits += 1
-                    is_critical = True
+                if Game.instance.target and Game.instance.fighter_system.has(Game.instance.target):
+                    is_critical = False
+                    conf = config.data.weapons
+                    damage_multiplier = conf.arrowDamageMultiplier
 
-                Game.instance.fighter_system.get(Game.instance.player).attack(Game.instance.target, damage_multiplier, is_critical)
-                Game.instance.player.arrows -= 1
-                Game.instance.auto_target = True
+                    if config.data.features.bowCrits and Game.instance.random.randint(0, 100) <= conf.bowCriticalProbability:
+                        damage_multiplier *= 1 + conf.bowCriticalDamageMultiplier
+                        if config.data.features.bowCritsStack:
+                            target_fighter = Game.instance.fighter_system.get(Game.instance.target)
+                            damage_multiplier += conf.bowCriticalDamageMultiplier * target_fighter.bow_crits
+                            target_fighter.bow_crits += 1
+                        is_critical = True
+
+                    Game.instance.fighter_system.get(Game.instance.player).attack(Game.instance.target, damage_multiplier, is_critical)
+                    Game.instance.player.arrows -= 1
+                    Game.instance.auto_target = True
+            else:
+                message("Out of arrows!")
 
         Game.instance.keybinder.register_keybind('ESCAPE', new_escape_callback)
         Game.instance.keybinder.register_keybind('f', new_f_callback)

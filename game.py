@@ -6,7 +6,7 @@ import random
 
 class Game:
     instance = None
-    _dont_pickle = {'ui', 'save_manager', 'keybinder', 'renderer'}
+    _dont_pickle = {'ui', 'save_manager', 'keybinder', 'renderer', 'difficulty'}
 
     def __init__(self):
         Game.instance = self
