@@ -11,6 +11,7 @@ class Difficulty:
     def watch_events(self):
         Game.instance.event_bus.bind('on_entity_died', self._on_entity_died)
         Game.instance.event_bus.bind('on_entity_hurt', self._on_entity_hurt)
+        Game.instance.event_bus.bind('on_descend', lambda: self._modify_difficulty(10))
 
     def save(self):
         with open('current_difficulty', 'w') as f:

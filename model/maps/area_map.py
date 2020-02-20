@@ -11,7 +11,7 @@ class AreaMap:
         self.width = width
         self.height = height
         self.next_floor_stairs = (None, None)
-        self.previous_floor_stairs = (None, None)
+        #self.previous_floor_stairs = (None, None)
         self.floor_num = floor_num
 
         # Create a 2D structure of tiles

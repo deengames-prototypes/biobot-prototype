@@ -1,3 +1,5 @@
+from difficulty import Difficulty
+from game import Game
 from model.config import config
 
 class UpdateManager:
@@ -27,21 +29,26 @@ class UpdateManager:
         if self.game.renderer.recompute_fov:
             if (self.game.player.x, self.game.player.y) == self.game.area_map.next_floor_stairs:
                 self.next_floor()
-            elif (self.game.player.x, self.game.player.y) == self.game.area_map.previous_floor_stairs:
-                self.previous_floor()
+            # NO. ESCAPE.
+            #elif (self.game.player.x, self.game.player.y) == self.game.area_map.previous_floor_stairs:
+            #    self.previous_floor()
         self.game.renderer.render()
 
+    # descend stairs
     def next_floor(self):
         self.game.current_floor += 1
+        Game.instance.event_bus.trigger('on_descend')
         self.load_next_floors_objects()
-        self.place_player_in_floor(self.game.area_map.previous_floor_stairs)
+        self.place_player_in_floor(self.game.area_map.get_random_walkable_tile())
         self.refresh_renderer()
 
+    # Ascend stairs. No code paths lead here.
     def previous_floor(self):
-        self.game.current_floor -= 1
-        self.load_next_floors_objects()
-        self.place_player_in_floor(self.game.area_map.next_floor_stairs)
-        self.refresh_renderer()
+        pass
+        #self.game.current_floor -= 1
+        #self.load_next_floors_objects()
+        #self.place_player_in_floor(self.game.area_map.next_floor_stairs)
+        #self.refresh_renderer()
 
     def load_next_floors_objects(self):
         self.game.area_map.entities.remove(self.game.player)

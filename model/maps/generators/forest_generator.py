@@ -21,7 +21,7 @@ class ForestGenerator:
         (64, 128, 0), # Brownish
         (0, 64, 0)) # Greenish
     NUM_ITEMS = (10, 20)
-    NUM_MONSTERS = (30, 40)
+    NUM_MONSTERS = (20, 30)
 
     def __init__(self, area_map):
         self._area_map = area_map
@@ -138,8 +138,10 @@ class ForestGenerator:
             self._area_map.tiles[tile[0]][tile[1]].convert_to_ground(character='>', colour=palette.white,
                                                                      dark_colour=palette.gray)
 
-        if self._area_map.floor_num > 1:
-            tile = self._area_map.get_random_walkable_tile()
-            self._area_map.previous_floor_stairs = tile
-            self._area_map.tiles[tile[0]][tile[1]].convert_to_ground(character='<', colour=palette.white,
-                                                                     dark_colour=palette.gray)
+        # No stairs up. NO. WAY. OUT. :joy:
+        # But really, what's the point? Down and up are equivalent, since it's based on difficulty.
+        #if self._area_map.floor_num > 1:
+        #    tile = self._area_map.get_random_walkable_tile()
+        #    self._area_map.previous_floor_stairs = tile
+        #    self._area_map.tiles[tile[0]][tile[1]].convert_to_ground(character='<', colour=palette.white,
+        #                                                             dark_colour=palette.gray)
