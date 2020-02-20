@@ -15,13 +15,13 @@ class ForestGenerator:
     Includes population of monsters, map items, etc.
     """
     
-    TREE_PERCENTAGE = 1 / 4  # This percent of the map area should be trees
+    TREE_PERCENTAGE = 1 / 5  # This percent of the map area should be trees
     TREE_COPSE_SIZE = 5  # Create copses of N trees at a time
     TREE_COLOURS = (
         (64, 128, 0), # Brownish
         (0, 64, 0)) # Greenish
     NUM_ITEMS = (10, 20)
-    NUM_MONSTERS = (15, 20)
+    NUM_MONSTERS = (15, 25)
 
     def __init__(self, area_map):
         self._area_map = area_map
