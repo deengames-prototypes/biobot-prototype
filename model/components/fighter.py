@@ -33,9 +33,9 @@ class Fighter(Component):
         # check for death
         if self.hp <= 0:
             self.die()
-            Game.instance.event_bus.trigger('on_entity_died', self)
+            Game.instance.event_bus.trigger('on_entity_died', self.owner)
         else:
-            Game.instance.event_bus.trigger('on_entity_hurt', self)
+            Game.instance.event_bus.trigger('on_entity_hurt', self.owner)
 
     def attack(self, target, damage_multiplier=1, is_critical=False, *, recurse=True):
         # a simple formula for attack damage
