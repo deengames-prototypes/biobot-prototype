@@ -17,7 +17,9 @@ class BasicMonster(AbstractAI):
         if (monster.x, monster.y) in Game.instance.renderer.visible_tiles:
 
             # move towards player if far away
-            if monster.distance_to(Game.instance.player) >= 2:
+            # > 1: allow four-directional melee
+            # >= 2: allow monsters to diagonally melee
+            if monster.distance_to(Game.instance.player) > 1:
                 monster.move_towards(Game.instance.player.x, Game.instance.player.y)
 
             # close enough, attack! (if the player is still alive.)

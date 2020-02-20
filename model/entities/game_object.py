@@ -1,7 +1,6 @@
 import math
-
+import random
 from game import Game
-
 
 class GameObject:
     """
@@ -26,16 +25,19 @@ class GameObject:
             return Game.instance.area_map.get_blocking_object_at(self.x + dx, self.y + dy)
 
     def move_towards(self, target_x, target_y):
-        # vector from this object to the target, and distance
-        dx = target_x - self.x
-        dy = target_y - self.y
-        distance = math.sqrt(dx ** 2 + dy ** 2)
-
-        # normalize it to length 1 (preserving direction), then round it and
-        # convert to integer so the movement is restricted to the map grid
-        dx = int(round(dx / distance))
-        dy = int(round(dy / distance))
-        return self.move(dx, dy)
+        # Look at whether we should move in the x-axis, and y-axis; then pick one and go.
+        # copysign(1, n) is what people write for math.sign(n) (which doesn't exist in Python)
+        dx = int(math.copysign(1, target_x - self.x))
+        dy = int(math.copysign(1, target_y - self.y))
+        
+        moves = []
+        if (dx != 0):
+            moves.append((dx, 0))
+        if (dy != 0):
+            moves.append((0, dy))
+        
+        x, y = random.choice(moves)
+        return self.move(x, y)
 
     def distance_to(self, other):
         # return the distance to another object
