@@ -28,7 +28,7 @@ class Item(Component):
         else:
             Game.instance.inventory.append(self.owner)
             Game.instance.area_map.entities.remove(self.owner)
-            message('You picked up a ' + self.owner.name + '!', palette.green)
+            message('You picked up a ' + self.owner.name + '!', palette.lime_green)
 
     def drop(self):
         """
