@@ -21,7 +21,7 @@ class ForestGenerator:
         (64, 128, 0), # Brownish
         (0, 64, 0)) # Greenish
     NUM_ITEMS = (10, 20)
-    NUM_MONSTERS = (15, 25)
+    NUM_MONSTERS = (30, 40)
 
     def __init__(self, area_map):
         self._area_map = area_map
