@@ -26,7 +26,11 @@ class Difficulty:
 
     # event handlers
     def _on_entity_hurt(self, entity):
-        pass
+        if entity == Game.instance.player:
+            # Getting hurt is always bad. Because health is low.
+            # Snipe them from far, gank them with skills, etc.
+            # Trading blows is OK, but no way sustainable.
+            self._modify_difficulty(-1)
     
     def _on_entity_died(self, entity):
         if entity != Game.instance.player:
