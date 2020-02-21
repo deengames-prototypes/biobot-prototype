@@ -1,3 +1,4 @@
+from difficulty import Difficulty
 import palette
 from constants import POISON_TRAP_RADIUS, POISON_TRAP_TURNS
 from game import Game
@@ -11,7 +12,7 @@ def poison_trap(target):
     for victim in victims:
         message('{} is poisoned!'.format(victim.name))
         Game.instance.fighter_system.get(victim).poison_left += POISON_TRAP_TURNS
-
+    
 def swamp_trap(entity):
     # You're stuck for a few turns
     pass

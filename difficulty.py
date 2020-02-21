@@ -12,6 +12,8 @@ class Difficulty:
         Game.instance.event_bus.bind('on_entity_died', self._on_entity_died)
         Game.instance.event_bus.bind('on_entity_hurt', self._on_entity_hurt)
         Game.instance.event_bus.bind('on_descend', self._on_descend)
+        Game.instance.event_bus.bind('on_trap_triggered', self._on_trap_triggered)
+
 
     def save(self):
         with open('current_difficulty', 'w') as f:
@@ -39,6 +41,12 @@ class Difficulty:
     
     def _on_descend(self):
         self._modify_difficulty(10)
+
+    def _on_trap_triggered(self, victim):
+        if victim == Game.instance.player:
+            self._modify_difficulty(-3)
+        else:
+            self._modify_difficulty(3)
 
     # internal methods
     def _modify_difficulty(self, amount):

@@ -18,4 +18,5 @@ class Trap(GameObject):
             fighter = Game.instance.fighter_system.get(entity)
             if fighter != None:
                 self.trap_function(entity)
+                Game.instance.event_bus.trigger('on_trap_triggered', entity)
 
