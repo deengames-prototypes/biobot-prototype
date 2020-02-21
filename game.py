@@ -48,7 +48,7 @@ class Game:
 
         self.area_map = AreaMap(MAP_WIDTH, MAP_HEIGHT, self.current_floor)
         self.event_bus = EventBus()
-        Difficulty.instance.watch_events()
+        Difficulty() # re-inits watch events, nothing lost
 
         # generate map (at this point it's not drawn to the screen)
         generator_class_name = f'{str(config.data.mapType).lower().capitalize()}Generator'
