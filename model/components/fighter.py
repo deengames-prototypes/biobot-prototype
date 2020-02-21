@@ -93,4 +93,4 @@ class Fighter(Component):
             self.poison_left -= 1
             poison_damage = POISON_DAMAGE_PERCENT * self.max_hp
             self.take_damage(poison_damage)
-            print('{} takes {} poison damage!'.format(self.owner.name, poison_damage))
+            message('{} takes poison damage!'.format(self.owner.name, poison_damage))
