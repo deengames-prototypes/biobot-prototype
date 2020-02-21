@@ -14,8 +14,8 @@ class BasicMonster(AbstractAI):
     def _take_turn(self):
         # a basic monster takes its turn. If you can see it, it can see you
         monster = self.owner
+        my_fighter = Game.instance.fighter_system.get(monster)
         if (monster.x, monster.y) in Game.instance.renderer.visible_tiles:
-
             # move towards player if far away
             # > 1: allow four-directional melee
             # >= 2: allow monsters to diagonally melee
@@ -23,13 +23,14 @@ class BasicMonster(AbstractAI):
                 monster.move_towards(Game.instance.player.x, Game.instance.player.y)
 
             # close enough, attack! (if the player is still alive.)
-            elif Game.instance.fighter_system.get(Game.instance.player).hp > 0:
-                Game.instance.fighter_system.get(monster).attack(Game.instance.player)
+            elif my_fighter.hp > 0:
+                my_fighter.attack(Game.instance.player)
 
         else:
             if config.data.enemies.randomlyWalkWhenOutOfSight:
                 RandomWalker(Game.instance.area_map, monster).walk()
-
+        
+        my_fighter.apply_poison()
 
 class StunnedMonster(AbstractAI):
     """

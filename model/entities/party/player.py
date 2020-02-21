@@ -103,6 +103,8 @@ class Player(GameObject):
             self.attack(target)
         else:
             self.move(dx, dy)
+            Game.instance.fighter_system.get(self).apply_poison()
+
             if self.mounted:
                 if self.moves_while_mounted >= 1:
                     self.moves_while_mounted = 0
@@ -111,7 +113,7 @@ class Player(GameObject):
                     self.moves_while_mounted += 1
                 Game.instance.stallion.x, Game.instance.stallion.y = self.x, self.y
             Game.instance.renderer.recompute_fov = True
-            return
+            return        
 
     def attack(self, target):
         player_fighter = Game.instance.fighter_system.get(self)

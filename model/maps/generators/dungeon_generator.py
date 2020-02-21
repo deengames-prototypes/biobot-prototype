@@ -14,6 +14,7 @@ class DungeonGenerator:
     ROOM_MIN_SIZE = 6
     NUM_ITEMS = (10, 20)
     NUM_MONSTERS = (30, 40)
+    NUM_TRAPS = (5, 10) # 5 of A, 10 of B
 
     def __init__(self, area_map):
         self._rooms = []
@@ -22,10 +23,9 @@ class DungeonGenerator:
     def generate(self):
         self._generate_rooms()
 
-        map_generator.generate_monsters(self._area_map,
-            Game.instance.random.randint(*DungeonGenerator.NUM_ROOMS))
-        map_generator.generate_items(self._area_map,
-            Game.instance.random.randint(*DungeonGenerator.NUM_ITEMS))
+        map_generator.generate_monsters(self._area_map, Game.instance.random.randint(*DungeonGenerator.NUM_ROOMS))
+        map_generator.generate_items(self._area_map, Game.instance.random.randint(*DungeonGenerator.NUM_ITEMS))
+        map_generator.generate_traps(self._area_map, *DungeonGenerator.NUM_TRAPS)
 
     def _generate_rooms(self):
         # TODO: dry this block with forest generator

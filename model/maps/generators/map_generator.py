@@ -1,7 +1,9 @@
 from game import Game
 from model.entities.enemies.salamander import Salamander
 from model.entities.game_object import GameObject
+from model.trap import Trap
 from model.helper_functions import item_callbacks
+from model.helper_functions import trap_callbacks
 from model.config import config
 from model.factories import item_factory
 from model.factories import monster_factory
@@ -56,3 +58,21 @@ def generate_items(area_map, num_items):
 
         area_map.entities.append(item)
         item.send_to_back()  # items appear below other objects
+
+def generate_traps(area_map, num_a, num_b):
+    trap_data = [
+        ['poison trap', num_a, palette.dark_green, trap_callbacks.poison_trap],
+        ['swamp trap', num_b, palette.mauve, trap_callbacks.swamp_trap],
+    ]
+
+    for data in trap_data:
+        trap_name = data[0]
+        num = data[1]
+        colour = data[2]
+        trap_callback = data[3]
+
+        for i in range(num):
+            x, y = area_map.get_random_walkable_tile()
+            trap = Trap(x, y, '^', trap_name, colour, trap_callback)
+            area_map.entities.append(trap)
+            trap.send_to_back()  # items appear below other objects

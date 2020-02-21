@@ -1,3 +1,4 @@
+from constants import POISON_DAMAGE_PERCENT
 import palette
 from model.config import config
 from model.components.base import Component
@@ -22,6 +23,7 @@ class Fighter(Component):
 
         self.hostile = hostile
         self.take_damage_strategy = self.default_take_damage_strategy
+        self.poison_left = 0 # turns left with poison
 
     def take_damage(self, damage):
         # apply damage if possible
@@ -85,3 +87,10 @@ class Fighter(Component):
             self.death_function(self.owner)
         else:
             self.owner.default_death_function()
+
+    def apply_poison(self):
+        if self.poison_left > 0:
+            self.poison_left -= 1
+            poison_damage = POISON_DAMAGE_PERCENT * self.max_hp
+            self.take_damage(poison_damage)
+            print('{} takes {} poison damage!'.format(self.owner.name, poison_damage))

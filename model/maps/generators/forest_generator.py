@@ -22,6 +22,7 @@ class ForestGenerator:
         (0, 64, 0)) # Greenish
     NUM_ITEMS = (10, 20)
     NUM_MONSTERS = (20, 30)
+    NUM_TRAPS = (5, 10) # 5 of A, 10 of B
 
     def __init__(self, area_map):
         self._area_map = area_map
@@ -29,11 +30,9 @@ class ForestGenerator:
     def generate(self):
         self._generate_trees()
         
-        map_generator.generate_monsters(self._area_map,
-            Game.instance.random.randint(*ForestGenerator.NUM_MONSTERS))
-
-        map_generator.generate_items(self._area_map, 
-            Game.instance.random.randint(*ForestGenerator.NUM_ITEMS))
+        map_generator.generate_monsters(self._area_map, Game.instance.random.randint(*ForestGenerator.NUM_MONSTERS))
+        map_generator.generate_items(self._area_map, Game.instance.random.randint(*ForestGenerator.NUM_ITEMS))
+        map_generator.generate_traps(self._area_map, *ForestGenerator.NUM_TRAPS)
 
         self.place_stairs()
 
