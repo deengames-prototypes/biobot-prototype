@@ -1,6 +1,7 @@
 import math
 import random
 from game import Game
+from model.helper_functions.message import message
 
 class GameObject:
     """
@@ -14,8 +15,14 @@ class GameObject:
         self.color = color
         self.name = name
         self.blocks = blocks
+        self.turns_stuck = 0
 
     def move(self, dx, dy):
+        if self.turns_stuck > 0:
+            self.turns_stuck -= 1
+            message("{} can't move!".format(self.name))
+            return False
+
         # move by the given amount, if the destination is not blocked
         if Game.instance.area_map.is_walkable(self.x + dx, self.y + dy):
             self.x += dx
@@ -25,6 +32,11 @@ class GameObject:
             return Game.instance.area_map.get_blocking_object_at(self.x + dx, self.y + dy)
 
     def move_towards(self, target_x, target_y):
+        if self.turns_stuck > 0:
+            self.turns_stuck -= 1
+            message("{} can't move!".format(self.name))
+            return False
+
         # Look at whether we should move in the x-axis, and y-axis; then pick one and go.
         # copysign(1, n) is what people write for math.sign(n) (which doesn't exist in Python)
         dx = int(math.copysign(1, target_x - self.x))
