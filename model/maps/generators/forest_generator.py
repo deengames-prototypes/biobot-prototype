@@ -71,8 +71,6 @@ class ForestGenerator:
                     self._area_map.tiles[x][y].convert_to_water()
                 
                 lakes_made += 1
-                
-
 
     def _breadth_first_search(self, start_position):
         """

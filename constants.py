@@ -1,6 +1,7 @@
-# size of the map
+# BASE size of the map at difficulty=1000
 MAP_WIDTH = 80
 MAP_HEIGHT = 30
+DIFFICULTY_PER_ONE_TILE_GROWTH = 100
 
 SCREEN_WIDTH = MAP_WIDTH
 SCREEN_HEIGHT = MAP_HEIGHT + 5 # +5 for status bar + health display

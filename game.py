@@ -1,4 +1,4 @@
-from constants import MAP_WIDTH, MAP_HEIGHT
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT, PANEL_HEIGHT, LIMIT_FPS
 from model.config import config
 from model.event.event_bus import EventBus
 from model.systems.system import ComponentSystem
@@ -54,3 +54,19 @@ class Game:
         generator_class_name = f'{str(config.data.mapType).lower().capitalize()}Generator'
         generator = getattr(generators, generator_class_name)
         generator(self.area_map).generate()
+        self.resize_ui(self.area_map.width, self.area_map.height)
+
+    def resize_ui(self, map_width, map_height):
+        from model.systems.system import ComponentSystem
+        from model.key_binder import KeyBinder
+        from view.adapter.tdl_adapter import TdlAdapter
+
+        self.ui = TdlAdapter(
+            "Roguelike",
+            screen=(SCREEN_WIDTH, SCREEN_HEIGHT),
+            map=(map_width, map_height),
+            panel=(SCREEN_WIDTH, PANEL_HEIGHT),
+            fps_limit=LIMIT_FPS)
+        
+        self.keybinder = KeyBinder(Game)        
+        self.keybinder.register_all_keybinds_and_events()

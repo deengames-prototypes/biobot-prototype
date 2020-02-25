@@ -8,7 +8,7 @@ from model.config import file_watcher, config
 file_watcher.watch('config.json', lambda raw_json: config.load(raw_json))
 
 import palette
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT, PANEL_HEIGHT, LIMIT_FPS
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT
 from difficulty import Difficulty
 from game import Game
 from data.save_manager import SaveManager
@@ -22,9 +22,7 @@ from model.maps.area_map import AreaMap
 from model.maps.generators import ForestGenerator
 from model.systems.ai_system import AISystem
 from model.systems.system import ComponentSystem
-from view.adapter.tdl_adapter import TdlAdapter
 from view.map_renderer import MapRenderer
-
 
 def new_game():
 
@@ -81,17 +79,9 @@ def init_game():
     Game() # initializes Game.instance
     Difficulty()
 
-    Game.instance.ui = TdlAdapter(
-        "Roguelike",
-        screen=(SCREEN_WIDTH, SCREEN_HEIGHT),
-        map=(MAP_WIDTH, MAP_HEIGHT),
-        panel=(SCREEN_WIDTH, PANEL_HEIGHT),
-        fps_limit=LIMIT_FPS
-    )
-
+    # Reset in generate-floor
+    Game.instance.resize_ui(MAP_WIDTH, MAP_HEIGHT)
     Game.instance.save_manager = SaveManager(Game)
-    Game.instance.keybinder = KeyBinder(Game)
-    Game.instance.keybinder.register_all_keybinds_and_events()
 
     seed = config.get("seed") or int(datetime.now().timestamp())
     Game.instance.random = Random(seed)
