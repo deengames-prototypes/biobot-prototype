@@ -45,13 +45,13 @@ class Difficulty:
 
     def _on_trap_triggered(self, victim):
         if victim == Game.instance.player:
-            self._modify_difficulty(-3)
+            self._modify_difficulty(-5)
         else:
-            self._modify_difficulty(3)
+            self._modify_difficulty(5)
     
     def _on_environment_triggered(self, victim, map_tile):
         if victim == Game.instance.player:
-            self._modify_difficulty(-2)
+            self._modify_difficulty(-3)
         # Monsters just randomly stew in it. No need to spam-up difficulty.
 
     # internal methods
