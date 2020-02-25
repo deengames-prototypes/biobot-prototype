@@ -110,9 +110,9 @@ def main_menu():
         center = (SCREEN_WIDTH - len(title)) // 2
         Game.instance.ui.draw_root(center, SCREEN_HEIGHT // 2 - 4, title, palette.yellow)
 
-        title = 'By nightblade9'
+        title = 'Difficulty: {}'.format(Difficulty.instance.current_difficulty)
         center = (SCREEN_WIDTH - len(title)) // 2
-        Game.instance.ui.draw_root(center, SCREEN_HEIGHT - 2, title, palette.yellow)
+        Game.instance.ui.draw_root(center, SCREEN_HEIGHT - 2, title, palette.white)
 
         # show options and wait for the player's choice
         choice = create_menu('', ['Play a new game', 'Continue last game', 'Quit'], 24)
