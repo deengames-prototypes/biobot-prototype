@@ -2,12 +2,12 @@ import math
 
 from attrdict import AttrDict
 
-import palette
 from game import Game
 from model.components.walkers.random_walker import RandomWalker
 from model.maps.generators import map_generator
 from model.config import config
-
+import palette
+from constants import LAKE_RADIUS, NUM_LAKES
 
 class ForestGenerator:
     """
@@ -29,6 +29,7 @@ class ForestGenerator:
 
     def generate(self):
         self._generate_trees()
+        self._form_lakes()
         
         map_generator.generate_monsters(self._area_map, Game.instance.random.randint(*ForestGenerator.NUM_MONSTERS))
         map_generator.generate_items(self._area_map, Game.instance.random.randint(*ForestGenerator.NUM_ITEMS))
@@ -56,6 +57,22 @@ class ForestGenerator:
         # Since mining is not part of the core experience, let's flood-fill the
         # ground, and any non-flood-filled ground tiles can turn into trees.
         self._fill_ground_holes()
+
+    def _form_lakes(self):
+        # Pick some random trees, and convert all trees around them into water
+        lakes_made = 0
+        while lakes_made < NUM_LAKES:
+            x, y = self._area_map.get_random_nonwalkable_tile()
+            tree_tiles = self._area_map.get_nonwalkable_tiles_around(x, y, LAKE_RADIUS)
+            if len(tree_tiles) > 0:
+                
+                for coordinates in tree_tiles:
+                    x, y = coordinates
+                    self._area_map.tiles[x][y].convert_to_ground('~', (32, 96, 192))
+                
+                lakes_made += 1
+                
+
 
     def _breadth_first_search(self, start_position):
         """

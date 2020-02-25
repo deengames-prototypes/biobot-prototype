@@ -3,6 +3,7 @@ from game import Game
 from model.maps.map_tile import MapTile
 from model.rect import Rect
 
+import math
 
 class AreaMap:
     def __init__(self, width, height, floor_num=0):
@@ -51,6 +52,12 @@ class AreaMap:
             if self.is_walkable(x, y):
                 return x, y
 
+    def get_random_nonwalkable_tile(self):
+        while True:
+            x, y = self.get_random_tile()
+            if not self.is_walkable(x, y):
+                return x, y
+
     def place_on_random_ground(self, entity):
         x, y = self.get_random_walkable_tile()
 
@@ -92,6 +99,17 @@ class AreaMap:
                             return tile
 
         return None
+
+    def get_nonwalkable_tiles_around(self, center_x, center_y, range_num):
+        to_return = []
+        for r2 in range(-range_num, range_num):
+            for r1 in range(-range_num, range_num):
+                x = center_x + r1
+                y = center_y + r2
+                if x >= 0 and y >= 0 and x < self.width and y < self.height and math.sqrt(((center_x - x) ** 2) + ((center_y - y) ** 2)) <= range_num:
+                    to_return.append([x, y])
+
+        return to_return
 
     def place_around(self, entity, x, y):
         tile = self.get_walkable_tile_around(x, y, min(self.width, self.height))

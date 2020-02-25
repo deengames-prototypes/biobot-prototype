@@ -37,9 +37,9 @@ def generate_items(area_map, num_items):
     items = [
         ('!', 'healing potion', palette.pink, item_callbacks.cast_heal),
         ('$', 'skill potion', palette.pink, item_callbacks.restore_skill_points),
-        ('~', 'scroll of lightning bolt', palette.yellow, item_callbacks.cast_lightning),
-        ('~', 'scroll of fireball', palette.red, item_callbacks.cast_fireball),
-        ('~', 'scroll of confusion', palette.blue, item_callbacks.cast_confuse)
+        ('-', 'scroll of lightning bolt', palette.yellow, item_callbacks.cast_lightning),
+        ('-', 'scroll of fireball', palette.red, item_callbacks.cast_fireball),
+        ('-', 'scroll of confusion', palette.blue, item_callbacks.cast_confuse)
     ]
     probabilities = [
         35,
