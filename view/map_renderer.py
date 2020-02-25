@@ -1,5 +1,6 @@
 import palette
 from constants import FOV_ALGO, FOV_LIGHT_WALLS, MSG_X
+from difficulty import Difficulty
 from game import Game
 from model.maps import area_map
 from model.config import config
@@ -91,24 +92,15 @@ class MapRenderer:
         player_fighter = Game.instance.fighter_system.get(self._player)
         skill_component = Game.instance.skill_system.get(self._player)
         xp_component = Game.instance.xp_system.get(self._player)
+        LABEL_X = 3
 
-        self._ui_adapter.panel.draw_str(11, 1, "LEVEL {}".format(xp_component.level))
-        self._ui_adapter.panel.draw_str(10, 2, "HP: {}/{}".format(player_fighter.hp, player_fighter.max_hp))
-        self._ui_adapter.panel.draw_str(10, 3, "SP: {}/{}".format(skill_component.skill_points,
+        self._ui_adapter.panel.draw_str(LABEL_X, 1, "LEVEL {}".format(xp_component.level))
+        self._ui_adapter.panel.draw_str(LABEL_X, 2, "HP: {}/{}".format(player_fighter.hp, player_fighter.max_hp))
+        self._ui_adapter.panel.draw_str(LABEL_X, 3, "SP: {}/{}".format(skill_component.skill_points,
                                                                   config.data.player.maxSkillPoints))
 
-        self._ui_adapter.panel.draw_str(11, 4, "FLOOR {}".format(Game.instance.area_map.floor_num))
-
-        # show the horse's stats
-        if config.data.stallion.enabled:
-            self._ui_adapter.panel.draw_str(1, 4, "STALLION")
-
-            stallion_fighter = Game.instance.fighter_system.get(Game.instance.stallion)
-            skill_component = Game.instance.skill_system.get(Game.instance.stallion)
-
-            self._ui_adapter.panel.draw_str(10, 5, "HP: {}/{}".format(stallion_fighter.hp, stallion_fighter.max_hp))
-            self._ui_adapter.panel.draw_str(10, 6, "SP: {}/{}".format(skill_component.skill_points,
-                                                                      config.data.stallion.maxSkillPoints))
+        self._ui_adapter.panel.draw_str(LABEL_X, 4, "FLOOR {}".format(Game.instance.area_map.floor_num))
+        self._ui_adapter.panel.draw_str(LABEL_X, 5, "Difficulty: {}".format(Difficulty.instance.current_difficulty))
 
         # display names of objects under the mouse
         self._ui_adapter.panel.draw_str(1, 0, get_names_under_mouse(), fg=palette.light_gray)

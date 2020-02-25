@@ -5,6 +5,7 @@ class Difficulty:
 
     def __init__(self):
         Difficulty.instance = self
+        self.current_difficulty = 0
         self.load()
         self._watch_events()
     
