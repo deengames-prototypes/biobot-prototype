@@ -68,7 +68,7 @@ class ForestGenerator:
                 
                 for coordinates in tree_tiles:
                     x, y = coordinates
-                    self._area_map.tiles[x][y].convert_to_ground('~', (32, 96, 192))
+                    self._area_map.tiles[x][y].convert_to_water()
                 
                 lakes_made += 1
                 

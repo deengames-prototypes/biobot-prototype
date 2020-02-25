@@ -39,6 +39,12 @@ class AreaMap:
                             for e in self.get_entities_on(x, y)
                             if e.blocks
                         ]) == 0)
+    
+    def is_environment_obstacle(self, x, y):
+        if not self.is_on_map(x, y):
+            return False
+        else:
+            return self.tiles[x][y].is_environment_obstacle
 
     def is_visible_tile(self, x, y):
         return self.is_on_map(x, y) and not self.tiles[x][y].block_sight
@@ -106,7 +112,7 @@ class AreaMap:
             for r1 in range(-range_num, range_num):
                 x = center_x + r1
                 y = center_y + r2
-                if x >= 0 and y >= 0 and x < self.width and y < self.height and math.sqrt(((center_x - x) ** 2) + ((center_y - y) ** 2)) <= range_num:
+                if self.is_on_map(x, y) and math.sqrt(((center_x - x) ** 2) + ((center_y - y) ** 2)) <= range_num:
                     to_return.append([x, y])
 
         return to_return

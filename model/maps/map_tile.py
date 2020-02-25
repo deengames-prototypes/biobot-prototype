@@ -7,11 +7,14 @@ class MapTile:
     LIGHT_WALL_COLOUR = (192, 192, 192)
     GROUND_CHARACTER = '.'
     WALL_CHARACTER = '#'
+    WATER_CHARACTER = '~'
+    WATER_COLOUR = (32, 96, 192)
 
     def __init__(self):
         self.is_explored = False
         self.is_walkable = True
         self.block_sight = False
+        self.is_environment_obstacle = False
         self.convert_to_ground()
 
     def convert_to_wall(self, character=WALL_CHARACTER, colour=LIGHT_WALL_COLOUR, dark_colour=DARK_WALL_COLOUR):
@@ -23,7 +26,13 @@ class MapTile:
         self.is_walkable = True
         self.block_sight = False
         self._set_character_and_colour(character, colour, dark_colour)
-        
+    
+    def convert_to_water(self):
+        self.is_walkable = True
+        self.block_sight = False
+        self.is_environment_obstacle = True
+        self._set_character_and_colour(MapTile.WATER_CHARACTER, MapTile.WATER_COLOUR, MapTile.DARK_GROUND_COLOUR)
+
     def _set_character_and_colour(self, character, colour, dark_colour):
         self.character = character
         self.colour = colour

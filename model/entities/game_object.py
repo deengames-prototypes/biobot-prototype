@@ -2,6 +2,7 @@ import math
 import random
 from game import Game
 from model.helper_functions.message import message
+from model.maps.map_tile import MapTile
 
 class GameObject:
     """
@@ -22,15 +23,31 @@ class GameObject:
             self.turns_stuck -= 1
             message("{} can't move!".format(self.name))
             return False
+        
+        target_x, target_y = self.x, self.y
 
+        # Apply env stuff
+        if Game.instance.area_map.tiles[self.x][self.y].character == MapTile.WATER_CHARACTER:
+            target_x, target_y = Game.instance.area_map.mutate_position_if_walkable(self.x, self.y)
+            message('{} is swept away in the current!'.format(self.name))
         # move by the given amount, if the destination is not blocked
-        if Game.instance.area_map.is_walkable(self.x + dx, self.y + dy):
-            self.x += dx
-            self.y += dy
+        elif Game.instance.area_map.is_walkable(self.x + dx, self.y + dy):
+            target_x += dx
+            target_y += dy
+        
+        if target_x != self.x or target_y != self.y:
+            self.x = target_x
+            self.y = target_y
             Game.instance.event_bus.trigger('on_entity_move', self)
-        else:
-            return Game.instance.area_map.get_blocking_object_at(self.x + dx, self.y + dy)
 
+            if Game.instance.area_map.is_environment_obstacle(self.x, self.y):
+                Game.instance.event_bus.trigger('stepped_on_environment_obstacle', self, Game.instance.area_map.tiles[self.x][self.y])
+                return True             
+            else:
+                return Game.instance.area_map.get_blocking_object_at(self.x, self.y)
+
+        return False # didn't move
+        
     def move_towards(self, target_x, target_y):
         if self.turns_stuck > 0:
             self.turns_stuck -= 1

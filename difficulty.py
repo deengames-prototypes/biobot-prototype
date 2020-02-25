@@ -14,7 +14,7 @@ class Difficulty:
         Game.instance.event_bus.bind('on_entity_hurt', self._on_entity_hurt)
         Game.instance.event_bus.bind('on_descend', self._on_descend)
         Game.instance.event_bus.bind('on_trap_triggered', self._on_trap_triggered)
-
+        Game.instance.event_bus.bind('stepped_on_environment_obstacle', self._on_environment_triggered)
 
     def save(self):
         with open('current_difficulty', 'w') as f:
@@ -48,6 +48,11 @@ class Difficulty:
             self._modify_difficulty(-3)
         else:
             self._modify_difficulty(3)
+    
+    def _on_environment_triggered(self, victim, map_tile):
+        if victim == Game.instance.player:
+            self._modify_difficulty(-2)
+        # Monsters just randomly stew in it. No need to spam-up difficulty.
 
     # internal methods
     def _modify_difficulty(self, amount):
