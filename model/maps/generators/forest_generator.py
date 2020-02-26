@@ -26,6 +26,7 @@ class ForestGenerator:
     NUM_TRAPS = (5, 10) # 5 of A, 10 of B
 
     DIFFICULTY_PER_MONSTER_INCREASE = 50
+    DIFFICULTY_PER_LAKE_RADIUS_INCREASE = 200 # big because we're increasing *five* lakes.
 
     def __init__(self, area_map):
         self._area_map = area_map
@@ -72,9 +73,11 @@ class ForestGenerator:
     def _form_lakes(self):
         # Pick some random trees, and convert all trees around them into water
         lakes_made = 0
+        lake_radius = LAKE_RADIUS + (Difficulty.instance.diff_from_base() // ForestGenerator.DIFFICULTY_PER_LAKE_RADIUS_INCREASE)
+
         while lakes_made < NUM_LAKES:
             x, y = self._area_map.get_random_nonwalkable_tile()
-            tree_tiles = self._area_map.get_nonwalkable_tiles_around(x, y, LAKE_RADIUS)
+            tree_tiles = self._area_map.get_nonwalkable_tiles_around(x, y, lake_radius)
             if len(tree_tiles) > 0:
                 
                 for coordinates in tree_tiles:
