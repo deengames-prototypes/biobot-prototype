@@ -1,3 +1,4 @@
+from difficulty import Difficulty
 from game import Game
 from model.entities.enemies.salamander import Salamander
 from model.entities.game_object import GameObject
@@ -9,6 +10,7 @@ from model.factories import item_factory
 from model.factories import monster_factory
 import palette
 
+DIFFICULTY_PER_MONSTER_DISTRIBUTION_PERCENT_INCREASE = 15
 
 def generate_monsters(area_map, num_monsters):
     enemies = [
@@ -17,12 +19,37 @@ def generate_monsters(area_map, num_monsters):
         ('tigerslash', config.data.enemies.tigerslash, palette.orange, GameObject),
         ('salamander', config.data.enemies.salamander, palette.red, Salamander)
     ]
-    probabilities = [
+    
+    # Given two sets of probabilities (base and worst-case) as two points on a line, pick a point between
+    # these two extremities based on our proportional difficulty. eg. if base is at 1000 and max is at 2000
+    # and we're at 1600, pick a point that's 40% of 1000 + 60% of 2000.
+    #
+    # But, we don't have a max difficulty. So for every, say, 50, move 1% closer to the max probabilities.
+    # If we did that, 1000+5000 = max. The max difficulty really should be around 2000, so the diff is 1000,
+    # which means we should move by +1% for every 10.
+    base_probabilities = [
         45,
         30,
         25,
         10
     ]
+
+    max_probabilities = [
+        5,
+        15,
+        35,
+        45
+    ]
+
+    # Up to 750: just use base
+    probabilities = base_probabilities
+    diff_percent = (Difficulty.instance.diff_from_base() / DIFFICULTY_PER_MONSTER_DISTRIBUTION_PERCENT_INCREASE) / 100.0
+    base_percent = 1 - diff_percent
+    max_percent = diff_percent
+
+    for i in range(len(probabilities)):
+        probabilities[i] = max(0, (base_probabilities[i] * base_percent) + (max_probabilities[i] * max_percent))
+
 
     for i in range(num_monsters):
         # choose random spot for this monster
