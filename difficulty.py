@@ -1,3 +1,4 @@
+from constants import BASE_DIFFICULTY
 from game import Game
 
 class Difficulty:
@@ -27,6 +28,9 @@ class Difficulty:
 
         self.current_difficulty = difficulty
         print("Loaded; difficulty is {}".format(self.current_difficulty))
+    
+    def diff_from_base(self):
+        return self.current_difficulty - BASE_DIFFICULTY
 
     # event handlers
     def _on_entity_hurt(self, entity):

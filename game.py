@@ -47,9 +47,8 @@ class Game:
         from difficulty import Difficulty
         
         # Scale map with difficulty
-        current_difficulty = Difficulty.instance.current_difficulty
-        extra_rows = (current_difficulty - BASE_DIFFICULTY) // DIFFICULTY_PER_ROW_INCREASE
-        extra_columns = (current_difficulty - BASE_DIFFICULTY) // DIFFICULTY_PER_COLUMN_INCREASE
+        extra_rows = Difficulty.instance.diff_from_base() // DIFFICULTY_PER_ROW_INCREASE
+        extra_columns = Difficulty.instance.diff_from_base() // DIFFICULTY_PER_COLUMN_INCREASE
         map_width = MAP_WIDTH + extra_rows
         map_height = MAP_HEIGHT + extra_columns
 

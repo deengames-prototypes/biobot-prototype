@@ -1,7 +1,8 @@
 import math
 
 from attrdict import AttrDict
-
+from constants import BASE_DIFFICULTY
+from difficulty import Difficulty
 from game import Game
 from model.components.walkers.random_walker import RandomWalker
 from model.maps.generators import map_generator
@@ -24,6 +25,8 @@ class ForestGenerator:
     NUM_MONSTERS = (20, 30)
     NUM_TRAPS = (5, 10) # 5 of A, 10 of B
 
+    DIFFICULTY_PER_MONSTER_INCREASE = 50
+
     def __init__(self, area_map):
         self._area_map = area_map
 
@@ -31,7 +34,15 @@ class ForestGenerator:
         self._generate_trees()
         self._form_lakes()
         
-        map_generator.generate_monsters(self._area_map, Game.instance.random.randint(*ForestGenerator.NUM_MONSTERS))
+        extra_monsters = Difficulty.instance.diff_from_base() // ForestGenerator.DIFFICULTY_PER_MONSTER_INCREASE
+        
+        # Linear increase: both min/max go up by one
+        num_monsters = (ForestGenerator.NUM_MONSTERS[0] + extra_monsters, ForestGenerator.NUM_MONSTERS[1] + extra_monsters)
+        # If you're really, really bad a this ... don't generate less than ten.
+        if extra_monsters <= -10:
+            num_monsters = (10, 10)
+
+        map_generator.generate_monsters(self._area_map, Game.instance.random.randint(*num_monsters))
         map_generator.generate_items(self._area_map, Game.instance.random.randint(*ForestGenerator.NUM_ITEMS))
         map_generator.generate_traps(self._area_map, *ForestGenerator.NUM_TRAPS)
 
