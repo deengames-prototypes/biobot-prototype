@@ -11,6 +11,7 @@ from model.factories import monster_factory
 import palette
 
 DIFFICULTY_PER_MONSTER_DISTRIBUTION_PERCENT_INCREASE = 15
+DIFFICULTY_PER_TRAP_INCREASE = 80 # a bit faster than we add rows/columns to the map
 
 def generate_monsters(area_map, num_monsters):
     enemies = [
@@ -87,9 +88,18 @@ def generate_items(area_map, num_items):
         item.send_to_back()  # items appear below other objects
 
 def generate_traps(area_map, num_a, num_b):
+    base_total = num_a + num_b
+    percent_a = num_a * 1.0 / base_total
+    percent_b = num_b * 1.0 / base_total
+
+    extra_traps = Difficulty.instance.diff_from_base() // DIFFICULTY_PER_TRAP_INCREASE
+    new_total = base_total + extra_traps
+    poison_traps = int(percent_a * new_total)
+    swamp_traps = int(percent_b * new_total)
+
     trap_data = [
-        ['poison trap', num_a, palette.dark_green, trap_callbacks.poison_trap],
-        ['swamp trap', num_b, palette.mauve, trap_callbacks.swamp_trap],
+        ['poison trap', poison_traps, palette.dark_green, trap_callbacks.poison_trap],
+        ['swamp trap', swamp_traps, palette.mauve, trap_callbacks.swamp_trap],
     ]
 
     for data in trap_data:

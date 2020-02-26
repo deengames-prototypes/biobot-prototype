@@ -14,7 +14,7 @@ class DungeonGenerator:
     ROOM_MIN_SIZE = 6
     NUM_ITEMS = (10, 20)
     NUM_MONSTERS = (30, 40)
-    NUM_TRAPS = (5, 10) # 5 of A, 10 of B
+    NUM_TRAPS = (5, 10) # 5 poison, 10 swamp. Base amount.
 
     def __init__(self, area_map):
         self._rooms = []
