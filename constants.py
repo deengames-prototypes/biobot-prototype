@@ -5,8 +5,8 @@ DIFFICULTY_PER_ROW_INCREASE = 100
 DIFFICULTY_PER_COLUMN_INCREASE = 200
 BASE_DIFFICULTY = 1000
 
-SCREEN_WIDTH = MAP_WIDTH
-SCREEN_HEIGHT = MAP_HEIGHT + 5 # +5 for status bar + health display
+SCREEN_WIDTH = 80
+SCREEN_HEIGHT = 35 # +5 for status bar + health display
 
 # sizes and coordinates relevant for the GUI
 BAR_WIDTH = 20

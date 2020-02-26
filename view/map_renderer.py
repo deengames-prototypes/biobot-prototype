@@ -1,12 +1,11 @@
 import palette
-from constants import FOV_ALGO, FOV_LIGHT_WALLS, MSG_X
+from constants import FOV_ALGO, FOV_LIGHT_WALLS, MSG_X, SCREEN_WIDTH, SCREEN_HEIGHT
 from difficulty import Difficulty
 from game import Game
 from model.maps import area_map
 from model.config import config
 from view.targeting_monster import closest_monster
 from view.targeting_mouse import get_names_under_mouse
-
 
 class MapRenderer:
     def __init__(self, player, ui_adapter):
@@ -18,15 +17,16 @@ class MapRenderer:
     def reset(self):
         self.recompute_fov = True
         self.visible_tiles = []
-        self._all_tiles_rendered = False
 
     def render(self):
-        if config.data.features.seeAllTiles and not self._all_tiles_rendered:
-            for x in range(Game.instance.area_map.width):
-                for y in range(Game.instance.area_map.height):
-                    tile = Game.instance.area_map.tiles[x][y]
-                    self._ui_adapter.con.draw_str(x, y, tile.character, tile.dark_colour)
-            self._all_tiles_rendered = True
+        # Draw things outside our FOV that are on-screen but maybe moved because the camera moved
+        # TODO: do this more selectively (on first render or on camera-move)
+        camera_x, camera_y = self._get_camera_coordinates()
+
+        for x in range(camera_x, camera_x + SCREEN_WIDTH - 1):
+            for y in range(camera_y, camera_y + SCREEN_HEIGHT - 1):
+                tile = Game.instance.area_map.tiles[x][y]
+                self.draw_string(x, y, tile.character, tile.dark_colour)
 
         if self.recompute_fov:
             self.recompute_fov = False
@@ -34,7 +34,7 @@ class MapRenderer:
             # style (because it was in the FOV, so it is explored).
             for (x, y) in self.visible_tiles:
                 tile = Game.instance.area_map.tiles[x][y]
-                self._ui_adapter.con.draw_str(x, y, tile.character, tile.dark_colour)
+                self.draw_string(x, y, tile.character, tile.dark_colour)
 
             # Due to lightWalls being set to true, we need to filter "walls" that are out of bounds.
             self.visible_tiles = area_map.filter_tiles(
@@ -54,7 +54,7 @@ class MapRenderer:
         # Draw everything in the current FOV
         for (x, y) in self.visible_tiles:
             tile = Game.instance.area_map.tiles[x][y]
-            self._ui_adapter.con.draw_str(x, y, tile.character, tile.colour)
+            self.draw_string(x, y, tile.character, tile.colour)
 
         for e in Game.instance.area_map.entities:
             if e is self._player:
@@ -71,9 +71,9 @@ class MapRenderer:
             for pos in line:
                 if pos in self.visible_tiles:
                     if pos == (x2, y2) and monster_on_target_tile:
-                        self._ui_adapter.con.draw_str(pos[0], pos[1], 'X', fg=palette.red)
+                        self.draw_string(pos[0], pos[1], 'X', palette.red)
                     else:
-                        self._ui_adapter.con.draw_str(pos[0], pos[1], '*', palette.dark_green)
+                        self.draw_string(pos[0], pos[1], '*', palette.dark_green)
 
         self._player.draw()
 
@@ -112,6 +112,30 @@ class MapRenderer:
             for y in range(Game.instance.area_map.height):
                 tile = Game.instance.area_map.tiles[x][y]
                 if tile.is_explored:
-                    self._ui_adapter.con.draw_str(x, y, tile.character, tile.dark_colour)
+                    self.draw_string(x, y, tile.character, tile.dark_colour)
                 else:
-                    self._ui_adapter.con.draw_str(x, y, ' ')
+                    self.draw_string(x, y, ' ', palette.black)
+
+    # Quick fix for map > camera size: translate world-to-screen and only draw things on-screen
+    def draw_string(self, x, y, string, colour):
+        camera_x, camera_y = self._get_camera_coordinates()
+
+        screen_x = x - camera_x
+        screen_y = y - camera_y
+
+        if 0 <= screen_x < SCREEN_WIDTH and 0 <= screen_y < SCREEN_HEIGHT:
+            self._ui_adapter.con.draw_str(screen_x, screen_y, string, colour)
+    
+    def _get_camera_coordinates(self):
+        map_width = Game.instance.area_map.width
+        map_height = Game.instance.area_map.height
+
+        camera_left = self._player.x - (SCREEN_WIDTH // 2)
+        if camera_left > map_width - SCREEN_WIDTH: camera_left = map_width - SCREEN_WIDTH
+        if camera_left < 0: camera_left = 0
+        
+        camera_top = self._player.y - (SCREEN_HEIGHT // 2)
+        if camera_top > map_height - SCREEN_HEIGHT: camera_top = map_height - SCREEN_HEIGHT
+        if camera_top < 0: camera_top = 0
+        
+        return (camera_left, camera_top)

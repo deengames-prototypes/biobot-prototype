@@ -89,11 +89,11 @@ class GameObject:
         # only show if it's visible to the player
         if (self.x, self.y) in Game.instance.renderer.visible_tiles:
             # draw the character that represents this object at its position
-            Game.instance.ui.con.draw_str(self.x, self.y, self.char, self.color)
+            Game.instance.renderer.draw_string(self.x, self.y, self.char, self.color)
 
     def clear(self):
         # erase the character that represents this object
-        Game.instance.ui.con.draw_str(self.x, self.y, ' ', self.color)
+        Game.instance.renderer.draw_string(self.x, self.y, ' ', self.color)
 
     def cleanup(self):
         if self in Game.instance.area_map.entities:
