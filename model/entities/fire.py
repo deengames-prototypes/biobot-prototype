@@ -15,7 +15,9 @@ class Fire(GameObject):
         self.turns_left_alight = config.data.enemies.fire.selfExtinguishTurns
 
     def on_entity_move(self, entity):
-        if (entity.x, entity.y) == (self.x, self.y):
+        # Salamanders are fire-proof
+        from model.entities.enemies.salamander import Salamander
+        if (entity.x, entity.y) == (self.x, self.y) and not isinstance(entity, Salamander):
             fighter = Game.instance.fighter_system.get(entity)
             if fighter is not None:
                 damage = Fighter.calculate_damage(config.data.enemies.fire, 1, fighter)

@@ -56,9 +56,5 @@ class Difficulty:
 
     # internal methods
     def _modify_difficulty(self, amount):
-        message = "increased"
-        if amount < 0: message = "decreased"
-        
-        print("Difficulty {}: {} => {}".format(message, self.current_difficulty, self.current_difficulty + amount))
         self.current_difficulty += amount
         self.save()

@@ -12,9 +12,9 @@ import palette
 
 def generate_monsters(area_map, num_monsters):
     enemies = [
-        ('bushslime', config.data.enemies.bushslime, palette.mauve, GameObject),
-        ('hawk', config.data.enemies.hawk, palette.pink, GameObject),
-        ('tigerslash', config.data.enemies.tigerslash, palette.light_orange, GameObject),
+        ('bushslime', config.data.enemies.bushslime, palette.yellow, GameObject),
+        ('hawk', config.data.enemies.hawk, palette.light_orange, GameObject),
+        ('tigerslash', config.data.enemies.tigerslash, palette.orange, GameObject),
         ('salamander', config.data.enemies.salamander, palette.red, Salamander)
     ]
     probabilities = [
