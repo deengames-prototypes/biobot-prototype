@@ -27,7 +27,6 @@ class Difficulty:
             difficulty = int(f.readline())
 
         self.current_difficulty = difficulty
-        print("Loaded; difficulty is {}".format(self.current_difficulty))
     
     def diff_from_base(self):
         return self.current_difficulty - BASE_DIFFICULTY

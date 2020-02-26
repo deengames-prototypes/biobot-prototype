@@ -41,7 +41,6 @@ def new_game():
         difficulty = int(f.readline())
 
     Game.instance.current_difficulty = difficulty
-    print('New game; difficulty is {}'.format(difficulty))
 
     Game.instance.generate_floor()
 

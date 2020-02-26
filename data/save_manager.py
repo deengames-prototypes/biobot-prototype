@@ -19,7 +19,6 @@ class SaveManager:
             pickle.dump(to_pickle, f, pickle.HIGHEST_PROTOCOL)
         
         Difficulty.instance.save()
-        print("Saved; difficulty is {}".format(Difficulty.instance.current_difficulty))
 
     def load(self):
         # open the previously saved shelve and load the game data
