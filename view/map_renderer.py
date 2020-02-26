@@ -11,7 +11,7 @@ class MapRenderer:
     def __init__(self, player, ui_adapter):
         self._player = player
         self._ui_adapter = ui_adapter
-
+        self._previous_camera = (-1, -1) # redraw on first draw
         self.reset()
         
     def reset(self):
@@ -19,14 +19,17 @@ class MapRenderer:
         self.visible_tiles = []
 
     def render(self):
-        # Draw things outside our FOV that are on-screen but maybe moved because the camera moved
-        # TODO: do this more selectively (on first render or on camera-move)
         camera_x, camera_y = self._get_camera_coordinates()
+        previous_x, previous_y = self._previous_camera
 
-        for x in range(camera_x, camera_x + SCREEN_WIDTH - 1):
-            for y in range(camera_y, camera_y + SCREEN_HEIGHT - 1):
-                tile = Game.instance.area_map.tiles[x][y]
-                self.draw_string(x, y, tile.character, tile.dark_colour)
+        if camera_x != previous_x or camera_y != previous_y:
+            self._previous_camera = camera_x, camera_y
+            # Draw things outside our FOV that are on-screen but maybe moved because the camera moved
+            # TODO: do this more selectively (on first render or on camera-move)
+            for x in range(camera_x, camera_x + SCREEN_WIDTH - 1):
+                for y in range(camera_y, camera_y + SCREEN_HEIGHT - 1):
+                    tile = Game.instance.area_map.tiles[x][y]
+                    self.draw_string(x, y, tile.character, tile.dark_colour)
 
         if self.recompute_fov:
             self.recompute_fov = False
