@@ -5,12 +5,14 @@ DIFFICULTY_PER_ROW_INCREASE = 25
 DIFFICULTY_PER_COLUMN_INCREASE = 50
 BASE_DIFFICULTY = 1000
 
-SCREEN_WIDTH = 80
-SCREEN_HEIGHT = 35 # +5 for status bar + health display
-
 # sizes and coordinates relevant for the GUI
 BAR_WIDTH = 20
 PANEL_HEIGHT = 7
+
+SCREEN_WIDTH = 80
+SCREEN_HEIGHT = 30 + PANEL_HEIGHT # +5 for status bar + health display
+
+# More GUI stuff
 PANEL_Y = SCREEN_HEIGHT - PANEL_HEIGHT
 MSG_X = BAR_WIDTH + 2
 MSG_WIDTH = SCREEN_WIDTH - BAR_WIDTH - 2

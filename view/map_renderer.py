@@ -1,5 +1,5 @@
 import palette
-from constants import FOV_ALGO, FOV_LIGHT_WALLS, MSG_X, SCREEN_WIDTH, SCREEN_HEIGHT
+from constants import FOV_ALGO, FOV_LIGHT_WALLS, MSG_X, SCREEN_WIDTH, SCREEN_HEIGHT, PANEL_HEIGHT
 from difficulty import Difficulty
 from game import Game
 from model.maps import area_map
@@ -27,7 +27,7 @@ class MapRenderer:
             # Draw things outside our FOV that are on-screen but maybe moved because the camera moved
             # TODO: do this more selectively (on first render or on camera-move)
             for x in range(camera_x, camera_x + SCREEN_WIDTH - 1):
-                for y in range(camera_y, camera_y + SCREEN_HEIGHT - 5 - 1):
+                for y in range(camera_y, camera_y + SCREEN_HEIGHT - PANEL_HEIGHT - 1):
                     tile = Game.instance.area_map.tiles[x][y]
                     self.draw_string(x, y, tile.character, tile.dark_colour)
 
