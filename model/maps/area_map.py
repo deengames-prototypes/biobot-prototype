@@ -55,7 +55,7 @@ class AreaMap:
     def get_random_walkable_tile(self):
         while True:
             x, y = self.get_random_tile()
-            if self.is_walkable(x, y):
+            if self.is_walkable(x, y) and not self.tiles[x][y].is_environment_obstacle:
                 return x, y
 
     def get_random_nonwalkable_tile(self):
