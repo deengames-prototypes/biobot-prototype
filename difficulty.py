@@ -28,8 +28,13 @@ class Difficulty:
             f.writelines(data)
     
     def load(self):
-        with open('current_difficulty', 'r') as f:
-            difficulty = int(f.readline())
+        try:
+            with open('current_difficulty', 'r') as f:
+                difficulty = int(f.readline())
+        except FileNotFoundError:
+            difficulty = 1000
+            self.current_difficulty = 1000
+            self.save()
 
         self.current_difficulty = difficulty
     
