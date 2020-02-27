@@ -29,7 +29,7 @@ class MapRenderer:
             for x in range(camera_x, camera_x + SCREEN_WIDTH - 1):
                 for y in range(camera_y, camera_y + SCREEN_HEIGHT - PANEL_HEIGHT - 1):
                     tile = Game.instance.area_map.tiles[x][y]
-                    if tile.is_explored:
+                    if tile.is_explored or config.data.features.seeAllTiles:
                         self.draw_string(x, y, tile.character, tile.dark_colour)
 
         if self.recompute_fov:
