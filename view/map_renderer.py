@@ -29,7 +29,8 @@ class MapRenderer:
             for x in range(camera_x, camera_x + SCREEN_WIDTH - 1):
                 for y in range(camera_y, camera_y + SCREEN_HEIGHT - PANEL_HEIGHT - 1):
                     tile = Game.instance.area_map.tiles[x][y]
-                    self.draw_string(x, y, tile.character, tile.dark_colour)
+                    if tile.is_explored:
+                        self.draw_string(x, y, tile.character, tile.dark_colour)
 
         if self.recompute_fov:
             self.recompute_fov = False
@@ -37,6 +38,7 @@ class MapRenderer:
             # style (because it was in the FOV, so it is explored).
             for (x, y) in self.visible_tiles:
                 tile = Game.instance.area_map.tiles[x][y]
+                tile.is_explored = True
                 self.draw_string(x, y, tile.character, tile.dark_colour)
 
             # Due to lightWalls being set to true, we need to filter "walls" that are out of bounds.
