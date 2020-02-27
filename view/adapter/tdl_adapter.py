@@ -22,8 +22,8 @@ class TdlAdapter:
         self.app = ExtensibleApp()
 
     def blit_map_and_panel(self):
-        self.blit_at(self.panel, 0, PANEL_Y, SCREEN_WIDTH, PANEL_HEIGHT, 0, 0)
         self.blit_at(self.con, 0, 0, self.con.width, self.con.height, 0, 0)
+        self.blit_at(self.panel, 0, PANEL_Y, SCREEN_WIDTH, PANEL_HEIGHT, 0, 0)
 
     def unblit_map_and_panel(self):
         self.unblit(self.panel)
