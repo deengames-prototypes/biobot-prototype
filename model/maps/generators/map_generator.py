@@ -15,10 +15,15 @@ DIFFICULTY_PER_TRAP_INCREASE = 80 # a bit faster than we add rows/columns to the
 
 def generate_monsters(area_map, num_monsters):
     enemies = [
-        ('bushslime', config.data.enemies.bushslime, palette.yellow, GameObject),
-        ('hawk', config.data.enemies.hawk, palette.light_orange, GameObject),
-        ('tigerslash', config.data.enemies.tigerslash, palette.orange, GameObject),
-        ('salamander', config.data.enemies.salamander, palette.red, Salamander)
+        ('walkrock', config.data.enemies.walkrock, palette.yellow, GameObject),
+        ('treeshell', config.data.enemies.treeshell, palette.light_orange, GameObject),
+        ('bloodbat', config.data.enemies.bloodbat, palette.orange, GameObject),
+        ('salamander', config.data.enemies.salamander, palette.red, Salamander),
+        ('ogrestone', config.data.enemies.ogrestone, palette.mauve, GameObject),
+        ('venobite', config.data.enemies.venobite, palette.pink, GameObject),
+        ('ent', config.data.enemies.ent, palette.purple, GameObject),
+        ('flamespider', config.data.enemies.flamespider, palette.red, Salamander),
+        ('chompvine', config.data.enemies.chompvine, palette.fuscia, GameObject)
     ]
     
     # Given two sets of probabilities (base and worst-case) as two points on a line, pick a point between
@@ -32,14 +37,24 @@ def generate_monsters(area_map, num_monsters):
         45,
         30,
         25,
-        10
+        10,
+        0,
+        0,
+        0,
+        0,
+        0
     ]
 
     max_probabilities = [
-        5,
-        15,
-        35,
-        45
+        0,
+        0,
+        0,
+        0,
+        10,
+        10,
+        20,
+        30,
+        30
     ]
 
     # Up to 750: just use base

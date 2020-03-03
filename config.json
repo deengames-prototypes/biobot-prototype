@@ -103,32 +103,65 @@
           "spreadProbability": 5,
           "selfExtinguishTurns": 3
         },
-        "bushslime": {
+        "walkrock": {
             "attack": 3,
             "defense": 3,
             "health": 10,
-            "xp": 10
+            "xp": 16
         },
-        "hawk": {
+        "treeshell": {
             "attack": 5,
-            "defense": 1,
+            "defense": 10,
             "health": 15,
-            "xp": 20
+            "xp": 25
         },
-        "tigerslash": {
-            "attack": 7,
-            "defense": 0,
-            "health": 10,
-            "xp": 35
+        "bloodbat": {
+            "attack": 16,
+            "defense": 5,
+            "health": 15,
+            "xp": 36
         },
         "salamander": {
-            "attack": 4,
-            "defense": 2,
-            "health": 8,
-            "xp": 35,
+            "attack": 16,
+            "defense": 8,
+            "health": 25,
+            "xp": 49,
             "shootsFire": true,
             "firesPerTurn": 0.5,
             "fireRange": 5
+        },
+        "ogrestone": {
+            "attack": 10,
+            "defense": 20,
+            "health": 34,
+            "xp": 64
+        },
+        "venobite": {
+            "attack": 30,
+            "defense": 11,
+            "health": 40,
+            "xp": 81
+        },
+        "ent": {
+            "attack": 35,
+            "defense": 35,
+            "health": 30,
+            "xp": 100
+        },
+        "flamespider": {
+            "attack": 30,
+            "defense": 30,
+            "health": 61,
+            "xp": 121,
+            "shootsFire": true,
+            "firesPerTurn": 1.5,
+            "fireRange": 7
+        },
+        "chompvine": {
+            "attack": 37,
+            "defense": 37,
+            "health": 70,
+            "xp": 144
         }
     },
     "skillsOnLevelUp": {
