@@ -25,7 +25,7 @@
         "expRequiredBase": 10, // formula: 2^(n+1) * this
         "startingWeapon": "Bow",
         "lightRadius": 10,
-        "statsPointsOnLevelUp": 3,
+        "statsPointsOnLevelUp": 1,
         "startingArrows": 10,
         "stallionFollowDistance": 3
     },
@@ -110,9 +110,9 @@
             "xp": 16
         },
         "treeshell": {
-            "attack": 5,
-            "defense": 10,
-            "health": 15,
+            "attack": 9,
+            "defense": 11,
+            "health": 5,
             "xp": 25
         },
         "bloodbat": {
@@ -122,9 +122,9 @@
             "xp": 36
         },
         "salamander": {
-            "attack": 16,
+            "attack": 12,
             "defense": 8,
-            "health": 25,
+            "health": 29,
             "xp": 49,
             "shootsFire": true,
             "firesPerTurn": 0.5,

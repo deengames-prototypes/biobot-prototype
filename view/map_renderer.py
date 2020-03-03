@@ -99,7 +99,7 @@ class MapRenderer:
         xp_component = Game.instance.xp_system.get(self._player)
         LABEL_X = 3
 
-        self._ui_adapter.panel.draw_str(LABEL_X, 1, "LEVEL {}".format(xp_component.level))
+        self._ui_adapter.panel.draw_str(LABEL_X, 1, "LEVEL {}".format(Game.instance.player.level))
         self._ui_adapter.panel.draw_str(LABEL_X, 2, "HP: {}/{}".format(player_fighter.hp, player_fighter.max_hp))
         self._ui_adapter.panel.draw_str(LABEL_X, 3, "SP: {}/{}".format(skill_component.skill_points,
                                                                   config.data.player.maxSkillPoints))
