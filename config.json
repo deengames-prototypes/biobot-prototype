@@ -25,7 +25,7 @@
         "expRequiredBase": 10, // formula: 2^(n+1) * this
         "startingWeapon": "Bow",
         "lightRadius": 10,
-        "statsPointsOnLevelUp": 5,
+        "statsPointsOnLevelUp": 3,
         "startingArrows": 10,
         "stallionFollowDistance": 3
     },
