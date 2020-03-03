@@ -26,6 +26,9 @@ class Difficulty:
         with open('current_difficulty', 'w') as f:
             data = str(self.current_difficulty)
             f.writelines(data)
+        with open('current_level', 'w') as f:
+            data = str(Game.instance.player.level)
+            f.writelines(data)
     
     def load(self):
         try:
@@ -33,6 +36,7 @@ class Difficulty:
                 difficulty = int(f.readline())
         except FileNotFoundError:
             difficulty = 1000
+            level = 1
             self.current_difficulty = 1000
             self.save()
 

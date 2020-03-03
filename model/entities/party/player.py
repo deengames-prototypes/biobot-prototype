@@ -52,26 +52,32 @@ class Player(GameObject):
         self.arrows = config.data.player.startingArrows
         self.level = 1
         self.mounted = False
-        self.moves_while_mounted = 0
+        self.moves_while_mounted = 0        
 
         print("You hold your wicked-looking {} at the ready!".format(weapon_name))
 
+        with open('current_level', 'r') as f:
+            level = int(f.readline())
+            self.on_level_callback(level)
+
     def on_level_callback(self, new_level):
-        levels_up = new_level - self.level        
-        conf = config.data.skillsOnLevelUp
-        skill_to_add = conf.get(str(new_level))
-        points = levels_up * config.data.player.statsPointsOnLevelUp
+        if new_level > self.level:
+            levels_up = new_level - self.level        
+            conf = config.data.skillsOnLevelUp
+            skill_to_add = conf.get(str(new_level))
+            points = levels_up * config.data.player.statsPointsOnLevelUp
 
-        self.level = new_level
-        
-        Game.instance.skill_system.get(self).max_skill_points += (2 * points)
-        my_fighter = Game.instance.fighter_system.get(self)
-        my_fighter.max_hp += (2 * points)
-        my_fighter.defense += points
-        my_fighter.damage += points
+            self.level = new_level
+            
+            Game.instance.skill_system.get(self).max_skill_points += (2 * points)
+            my_fighter = Game.instance.fighter_system.get(self)
+            my_fighter.max_hp += (2 * points)
+            my_fighter.hp = my_fighter.max_hp
+            my_fighter.defense += points
+            my_fighter.damage += points
 
-        if skill_to_add is not None:
-            add_skill(skill_to_add)
+            if skill_to_add is not None:
+                add_skill(skill_to_add)
 
     def mount(self, horse):
         if config.data.stallion.enabled and config.data.features.horseIsMountable:

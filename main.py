@@ -58,10 +58,6 @@ def new_game():
     # a warm welcoming message!
     message('Bio-bot 7163R descends to the planet.', palette.red)
 
-    # Gain four levels
-    Game.instance.xp_system.get(Game.instance.player).gain_xp(40 + 80 + 160 + 320)
-
-
 def play_game():
     Game.instance.ui.clear()
     Game.instance.ui.blit_map_and_panel()
