@@ -71,10 +71,21 @@ def generate_monsters(area_map, num_monsters):
         # choose random spot for this monster
         x, y = area_map.get_random_walkable_tile()
         name, data, colour, cls = Game.instance.random.choices(enemies, weights=probabilities)[0]
-
+        
+        # Don't add monsters that are impossible to hurt. Spawn the next strongest thing.
+        while data.defense >= Game.instance.fighter_system.get(Game.instance.player).damage:
+            index = get_enemies_index(data, enemies)
+            data = enemies[index - 1][1]
+        
         monster = monster_factory.create_monster(data, x, y, colour, name, cls)
         area_map.entities.append(monster)
 
+def get_enemies_index(who, enemies):
+    for i in range(len(enemies)):
+        if enemies[i][1] == who:
+            return i
+    
+    return -1
 
 def generate_items(area_map, num_items):
     items = [
