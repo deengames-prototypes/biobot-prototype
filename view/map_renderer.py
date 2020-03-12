@@ -102,7 +102,7 @@ class MapRenderer:
         self._ui_adapter.panel.draw_str(LABEL_X, 1, "LEVEL {}".format(Game.instance.player.level))
         self._ui_adapter.panel.draw_str(LABEL_X, 2, "HP: {}/{}".format(player_fighter.hp, player_fighter.max_hp))
         self._ui_adapter.panel.draw_str(LABEL_X, 3, "SP: {}/{}".format(skill_component.skill_points,
-                                                                  config.data.player.maxSkillPoints))
+                                                                  skill_component.max_skill_points))
 
         self._ui_adapter.panel.draw_str(LABEL_X, 4, "FLOOR {}".format(Game.instance.area_map.floor_num))
         self._ui_adapter.panel.draw_str(LABEL_X, 5, "Difficulty: {}".format(Difficulty.instance.current_difficulty))
