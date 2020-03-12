@@ -33,6 +33,7 @@ def new_game():
     Game.instance.ai_system = AISystem()
 
     Game.instance.player = Player()
+    Game.instance.player.set_skills()
     if config.data.stallion.enabled:
         Game.instance.stallion = Stallion(Game.instance.player)
 

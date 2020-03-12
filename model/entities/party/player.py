@@ -62,9 +62,7 @@ class Player(GameObject):
 
     def on_level_callback(self, new_level):
         if new_level > self.level:
-            levels_up = new_level - self.level        
-            conf = config.data.skillsOnLevelUp
-            skill_to_add = conf.get(str(new_level))
+            levels_up = new_level - self.level                    
             points = levels_up * config.data.player.statsPointsOnLevelUp
 
             self.level = new_level
@@ -76,6 +74,13 @@ class Player(GameObject):
             my_fighter.defense += points
             my_fighter.damage += points
 
+            skill_to_add = config.data.skillsOnLevelUp.get(str(new_level))
+            if skill_to_add is not None:
+                add_skill(skill_to_add)
+    
+    def set_skills(self):
+        for i in range(self.level):
+            skill_to_add = config.data.skillsOnLevelUp.get(str(i))
             if skill_to_add is not None:
                 add_skill(skill_to_add)
 

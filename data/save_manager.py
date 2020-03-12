@@ -25,4 +25,6 @@ class SaveManager:
         with open('savegame', 'rb') as f:
             Game.instance.__dict__.update(pickle.load(f).__dict__)
 
+        # learn skills and set up keybindings
+        Game.instance.player.set_skills()
         Difficulty.instance.load()

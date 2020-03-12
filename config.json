@@ -17,7 +17,7 @@
     "player": {
         "startingHealth": 30,
         "startingDefense": 2,
-        "startingDamage": 6,
+        "startingDamage": 10,
 
         "maxSkillPoints": 50,
         "skillPointsPerTurn": 2,
@@ -104,9 +104,9 @@
           "selfExtinguishTurns": 3
         },
         "walkrock": {
-            "attack": 3,
+            "attack": 10,
             "defense": 3,
-            "health": 10,
+            "health": 7,
             "xp": 16
         },
         "treeshell": {
