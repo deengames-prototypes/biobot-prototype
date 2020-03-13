@@ -2,7 +2,7 @@ from model.keys.callbacks import quit_event, mousemotion_event
 from model.keys.update_manager import UpdateManager
 from model.keys.key_callbacks import *
 from model.keys.key_callbacks import whirlwind_callback, omnislash_callback, frost_bomb_callback, lance_charge_callback, \
-    ruqya_callback
+    ruqya_callback, stab_callback
 
 
 KEY_BINDINGS = {
@@ -114,7 +114,8 @@ SKILL_KEYBINDINGS = {
     "omnislash": {'o': omnislash_callback},
     "frostbomb": {'h': frost_bomb_callback},
     "lanceCharge": {'j': lance_charge_callback},
-    "ruqya": {'u': ruqya_callback}
+    "ruqya": {'u': ruqya_callback},
+    "stab": {'t': stab_callback}
 }
 
 

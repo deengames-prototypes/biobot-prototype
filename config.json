@@ -47,6 +47,11 @@
             "probabilityOfAnotherHit": 20,
             "cost": 10
         },
+        "stab": {
+            "enabled": true,
+            "cost": 7,
+            "damageMultiplier": 2
+        },
         "whirlwind": {
             "enabled": true,
             "radius": 2,
@@ -165,10 +170,11 @@
         }
     },
     "skillsOnLevelUp": {
-        "2": "omnislash",
-        "3": "whirlwind",
-        "4": "ruqya",
-        "5": "frostbomb",
-        "6": "lanceCharge"
+        "2": "stab",
+        "3": "omnislash",
+        "4": "whirlwind",
+        "5": "ruqya",
+        "6": "frostbomb",
+        "7": "lanceCharge"
     }
 }

@@ -9,6 +9,7 @@ from model.keys.util import map_movement_callback
 from model.skills.frostbomb import FrostBomb
 from model.skills.lance_charge import LanceCharge
 from model.skills.omnislash import OmniSlash
+from model.skills.stab import Stab
 from model.skills.ruqya import Ruqya
 from model.skills.whirlwind import Whirlwind
 from model.config import config
@@ -209,6 +210,31 @@ def omnislash_callback(event):
         map_movement_callback(new_move_callback)
         Game.instance.keybinder.register_keybind('ESCAPE', new_escape_callback)
 
+@in_game(pass_turn=False)
+def stab_callback(event):
+    """Enter STABBY MCSTAB mode!"""
+    if config.data.skills.omnislash.enabled:
+        message('Attack an enemy to stab, or press escape to cancel.', palette.light_cyan)
+
+        Game.instance.keybinder.suspend_all_keybinds()
+
+        def new_escape_callback(event):
+            message('Cancelled')
+            Game.instance.keybinder.register_all_keybinds()
+
+        def new_move_callback(dx, dy):
+            target = Game.instance.area_map.get_blocking_object_at(Game.instance.player.x + dx, Game.instance.player.y + dy)
+            if target is not None and Game.instance.fighter_system.has(target):
+                message(f'{target.name.capitalize()} has been brutally stabbed by {Game.instance.player.name}!',
+                        palette.purple)
+                Game.instance.skill_system.get(Game.instance.player).use_skill(config.data.skills.stab.cost)
+                Stab.process(Game.instance.player, target, config.data.skills.stab)
+                Game.instance.keybinder.register_all_keybinds()
+            else:
+                Game.instance.player.move_or_attack(dx, dy)
+
+        map_movement_callback(new_move_callback)
+        Game.instance.keybinder.register_keybind('ESCAPE', new_escape_callback)
 
 @skill(cost=config.data.skills.frostbomb.cost)
 @in_game(pass_turn=True)

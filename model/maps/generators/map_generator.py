@@ -73,7 +73,8 @@ def generate_monsters(area_map, num_monsters):
         name, data, colour, cls = Game.instance.random.choices(enemies, weights=probabilities)[0]
         
         # Don't add monsters that are impossible to hurt. Spawn the next strongest thing.
-        while data.defense >= Game.instance.fighter_system.get(Game.instance.player).damage:
+        # Assumes you're smart enough to stab/scroll them.
+        while data.defense >= 2 * Game.instance.fighter_system.get(Game.instance.player).damage:
             index = get_enemies_index(data, enemies)
             data = enemies[index - 1][1]
         
