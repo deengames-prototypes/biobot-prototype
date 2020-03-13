@@ -14,7 +14,8 @@ def in_game(callback=None, *, pass_turn=False):
     def decorator(callback):
         @wraps(callback)
         def _inner_function(event):
-            if Game.instance.game_state == 'playing' and Game.instance.current_turn is Game.instance.player:
+            # None on auto-pickup
+            if Game.instance.game_state == 'playing' and (Game.instance.current_turn is Game.instance.player or Game.instance.current_turn is None):
                 if pass_turn:
                     Game.instance.current_turn = None
                 callback(event)

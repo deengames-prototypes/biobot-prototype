@@ -8,6 +8,7 @@ from game import Game
 from model.components.fighter import Fighter
 from model.entities.game_object import GameObject
 from model.key_binder import add_skill
+from model.keys.key_callbacks import pickup_callback
 
 
 class Player(GameObject):
@@ -122,6 +123,7 @@ class Player(GameObject):
             self.attack(target)
         else:
             self.move(dx, dy)
+            pickup_callback(None) # auto pick-up on move
             Game.instance.fighter_system.get(self).apply_poison()
 
             if self.mounted:
